@@ -1,0 +1,69 @@
+{
+	"cale_galerie": "resurse/imagini/galerie",
+	"imagini": [
+		{
+			"fisier": "club.jpg",
+			"titlu": "Club sportiv",
+			"descriere": "Club sportiv modern",
+			"sfert_ora": 4,
+			"license": "CC-BY",
+			"author": "SportPhoto",
+			"source": "Flickr",
+			"attribution_link": "https://flickr.com/photos/sportphoto/12445"
+		},
+		{
+			"fisier": "defavorizat.jpg",
+			"descriere": "Fotbalul intr-o societate defavorizata",
+			"titlu": "Defavorizat",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "fotbal_feminin.jpg",
+			"descriere": "Activitati sportive pentru fete",
+			"titlu": "Feminin",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "mascota.jpg",
+			"descriere": "Importnta mascotei",
+			"titlu": "Mascota",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "minge-brazuca.jpg",
+			"descriere": "Minge emblematica",
+			"titlu": "Minge",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "sintetic.jpg",
+			"descriere": "Teren sintetic",
+			"titlu": "Sintetic",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "teren.jpg",
+			"descriere": "Teren in aer liber",
+			"titlu": "Teren",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "teren.jpg",
+			"descriere": "Teren in aer liber",
+			"titlu": "Teren",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "teren.jpg",
+			"descriere": "Teren in aer liber",
+			"titlu": "Teren",
+			"sfert_ora": 4
+		},
+		{
+			"fisier": "teren.jpg",
+			"descriere": "Teren in aer liber",
+			"titlu": "Teren",
+			"sfert_ora": 4
+		}
+	]
+}

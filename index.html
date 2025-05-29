@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <title> GSports</title>
+        <meta charset="UTF-8"><!-- codificarea în memorie a caracterelor-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- va fi explicat când ajungem la CSS -->
+        <meta name="keywords" content="magazin sportiv, echipamente sportive, articole fitness, incaltaminte sportiva"><!--cuvintele cheie ale paginii; majoritatea motoarelor de căutare ignoră keywords -->
+        <meta name="description" content="Cele mai bune echipamente sportive. Comandă online la cele mai bune preturi"><!-- descrierea paginii, adesea apare sub link când sunt afișate rezultatele căutării -->
+        <meta name="author" content="George Marcusanu">  <!-- autorul/autoarea paginii-->
+        <link rel="icon" type="image/png" href="resurse/imagini/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="resurse/imagini/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="resurse/imagini/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="resurse/imagini/favicon/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+        <link rel="manifest" href="resurse/imagini/favicon/site.webmanifest" />
+
+        <link rel="stylesheet" type="text/css" href="./resurse/css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="./resurse/css/nav.css"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+        <link rel="stylesheet" href="./resurse/css/nav1000.css" type="text/css" media="screen and (max-width:1000px)"/>
+
+        <link rel="stylesheet" href="./resurse/css/nav700.css" type="text/css" media="screen and (max-width:700px)"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <header id="titlu">
+            <h1 style= "color:aqua;">GSports Store</h1>        
+        </header>
+        
+        <nav>
+            <label id="hamburger" for="ch-menu">
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </label>
+            
+            <input id="ch-menu" type="checkbox">
+
+            <ul class="meniu">
+
+                <li><div class="text-icon" id="acasa">Acasa</div>
+                    <div class="imag-icon" id="acasa-mediu"><span class="fas fa-regular fa-house"></span></div>
+                    <ul>
+                        <li><a href="#acasa">Bine ati venit</a></li>
+                        <li><a href="#promotii">Promotii</a></li>
+                        <li><a href="#colaborari">Colaborari</a></li>
+                        <li><a href="#produse">Produse</a></li>
+                        <li><a href="#orar">Orar</a></li>
+                        <li><a href="#index-intrebari">Întrebări</a></li>
+                        <li><a href="#informatiiutile">Informatii utile</a></li>
+                    </ul>
+                </li>
+
+                
+                <li>
+                    <div class="text-icon"> 
+                        <a href="#">Inregistrare</a>                     
+                    </div>
+                    <div class="imag-icon">
+                        <span class="fas fa-solid fa-book fa-bounce"></span>
+                    </div>                 
+                </li>
+                
+
+                <li><div class="text-icon"><a href="#">Despre</a>
+                </div><div class="imag-icon" ><span class="fa-solid fa-info-circle"></span></div>
+                    <ul>                        
+                        <li><a href="despre.html#prezentare">Prezentare</a></li>
+                        <li><a href="despre.html#istoric">Istoric</a></li>
+                        <li><a href="despre.html#motivatie">Motivatie</a></li>
+                        <li><a href="despre.html#galerie">Galerie</a></li>
+                    </ul>
+                </li>
+                <li><div class="text-icon"><a href="#">Produse</a>
+                    </div><div class="imag-icon" ><span class="fa-solid fa-cart-shopping"></span></div>
+                    <ul>
+                        <li><a href="http://www.google.com">Toate</a></li>
+                        <li><a href="#">Gantere</a></li>
+                        <li><a href="#">Undite</a></li>
+                        <li><a href="#">Rachete de tenis</a></li>
+                    </ul>
+                
+                </li>
+                <li>
+                    <div class="text-icon"><a href="#">Contact</a>
+                    </div><div class="imag-icon" ><span class="fa-solid fa-phone-alt"></span></div>
+                </li>
+            </ul>
+            <!-- <ul> 
+                <li><a href="#acasa">Acasă</a>
+                    <ul>
+                        <li><a href="#subsectiune1">Bine ați venit!</a></li>  
+                    </ul>
+                </li>
+                <li><a href="#produse">Produse</a>
+                    <ul>
+                        <li><a href="#promotii">Promoții</a></li>
+                    </ul>
+                </li>
+            </ul> -->
+        </nav>    
+        <main>
+            <div id="grid-pagina">  
+                <section id="acasa">
+                    <h2><strong> Bine ati venit!</strong></h2>
+                    <p>Oferim cele mai bune produse pentru pasionații de sport.</p>
+                    <p>Avem un parteneriat cu prietenii de la <a href="http://www.nike.com" target="_blank">Nike</a> care vrea sa aduca o diversitate si mai mare de produse.</p>
+                    <p><b>GSports</b> ofera cele mai <b>mici</b> preturi</p>
+                </section>
+
+                <section id="colaborari">
+                        <h3>Colaborari:</h3>
+                        <p>
+                            <p>Mai jos avem momente sponsorizate de magazinul nostru:</p>
+                            <div class="container-iframe">
+                                <div class="taburi-iframe">
+                                <a href="https://www.youtube.com/embed/XKAV4qRIvJ8?si=eM3q8CqsGdqovUv8" target="ifr-video">Best goals</a>
+                                <a href="https://www.youtube.com/embed/harRTnotR5w?si=Iyq747CCBbRhPRjL" target="ifr-video" >Messi's story</a>
+                                <a href="https://www.youtube.com/embed/29C37TmQM6U?si=1LzfzUBH-QrAbDor" target="ifr-video" class="coach-moments">Coach moments</a><br/>
+                                </div>
+                            
+                                <iframe name="ifr-video" width="560" height="315" src="https://www.youtube.com/embed/XKAV4qRIvJ8?si=eM3q8CqsGdqovUv8" 
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            La GSports Store, ne mândrim cu o selecție variată de produse de la cele mai cunoscute branduri din lume. Fie că ești amator sau sportiv de performanță, vei găsi echipamente care să îți îmbunătățească performanța și să îți ofere confortul necesar în timpul activităților fizice.
+                            Gama noastră include:
+                            Îmbrăcăminte sportivă pentru toate anotimpurile
+                            Încălțăminte specializată pentru diverse tipuri de sport
+                            Aparate și accesorii de fitness
+                            Echipamente pentru sporturi de echipă sau individuale
+                            Fiecare produs este atent selecționat pentru a oferi cea mai bună calitate la prețuri accesibile. Vizitează magazinul nostru online și descoperă ofertele noastre speciale! 
+                        </p>
+
+                <section id="mapaimagini">
+                        <img src="resurse/imagini/map.webp" usemap="#magazinMap" alt="Magazin Sportiv">
+
+                        <map name="magazinMap">
+                            <area target="" alt="Echipamente fitness" title="Echipamente fitness" href="#fitness" coords="594,150,560,387,1022,718,1022,350,735,210" shape="poly">
+                            <area target="" alt="Încălțăminte sport" title="Încălțăminte sport" href="#incaltaminte" coords="2,759,234,370" shape="rect">
+                            <area target="" alt="Mingi de baschet" title="Mingi de baschet" href="#mingi" coords="256,332,260,630,410,587,654,481,614,445,397,539,378,282,323,305" shape="poly">
+                        </map>
+
+                        <section id="incaltaminte">
+                            <h2>Încălțăminte Sport</h2>
+                            <p>Aici găsești cea mai bună încălțăminte sportivă.</p>
+                        </section>
+
+                        <section id="mingi">
+                            <h2>Mingi de Baschet</h2>
+                            <p>Descoperă cele mai bune mingi pentru fotbal.</p>
+                        </section>
+
+                        <section id="fitness">
+                            <h2>Echipamente Fitness</h2>
+                            <p>Accesorii și aparate pentru antrenamente de succes.</p>
+                        </section>
+                </section>
+                </section>
+
+                <section id="produse">
+                    <h2>Produse</h2>
+                    <section>
+                        <h3>Oferte Speciale</h3>
+                    
+                        <details>
+                            <summary>Minge Adidas la reducere - 20%!</summary>
+                            <p>Profită de această ofertă specială și achiziționează o minge Adidas premium cu 20% reducere.</p>
+                        </details>
+                    
+                        <details>
+                            <summary>Adiasi Nike - 15% reducere</summary>
+                            <p>Performanță și confort la super preț! Nike sunt acum la 15% reducere pentru o perioadă limitată.</p>
+                        </details>
+                    
+                        <details>
+                            <summary>Set de antrenament complet - 10% reducere</summary>
+                            <p>Cumpără un set complet de antrenament (tricou, pantaloni, pantofi și accesorii) și beneficiază de 10% reducere.</p>
+                        </details>
+                    </section>
+                    
+                </section>
+                
+                <section id="promotii">
+                    <h3>Promotii</h3>
+                    <div>Indiferent dacă te antrenezi în sală, alergi în aer liber sau practici sporturi de echipă, avem soluția perfectă pentru tine. Produsele noastre sunt create pentru a îmbunătăți performanțele sportive și a oferi un confort maxim.
+                    De ce să alegi GSports Store?
+                    Garanție pentru toate articolele sportive
+                    Livrare rapidă și returnare ușoară
+                    Consultanță specializată pentru alegerea echipamentului potrivit
+                    Cele mai noi colecții de la branduri renumite
+                    Descoperă oferta noastră și echipează-te pentru succes cu GSports Store!
+                    Acum ai reudecere de <s>10%</s>, 15% cu codul <b>GSports15</b>.
+                    </div>
+                    <p>
+                        Politica dupa care ne ghidam este: <q>Calitate, încredere și satisfacție - la GSports Store, fiecare produs este ales pentru a-ți oferi cea mai bună experiență sportivă.</q>
+                    </p>
+                </section>
+
+                <section id="orar">
+                    <h2>Orar</h2>
+                 <table id="tab-orar">
+                    <caption >Acesta este programul provizoriu</caption>
+                    <thead>
+                        <tr>
+                            <th>Cod</th>
+                            <th>Perioadă</th>
+                            <th>Zi</th>
+                            <th>Interval dimineata</th>
+                            <th>Pauza de masa</th>
+                            <th>Interval seară</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td rowspan="5">Zile<br/>Lucrătoare</td>
+                            <td>Luni</td>
+                            <td>10-12</td>
+                            <td>12-14</td>
+                            <td>14-20</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Marti</td>
+                            <td>9-12</td>
+                            <td>12-14</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Miercuri</td>
+                            <td>9-11</td>
+                            <td>11-13</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Joi</td>
+                            <td>9-11</td>
+                            <td>11-13</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Vineri</td>
+                            <td>9-12</td>
+                            <td>12-14</td>
+                            <td>14-19</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="2">Weekend</td>
+                            <td>Sambata</td>
+                            <td>10-12</td>
+                            <td>12-13</td>
+                            <td>13-16</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Duminica</td>
+                            <td>10-14</td>
+                            <td>-</td>
+                            <td>inchis</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">Programul poate suferi modificări în funcție de cerințele de lucru.</td>
+                        </tr>
+                    </tfoot>
+                 </table> 
+                 <p>
+                    Daca doriti sa descarcati un fisier cu tehnici web, apasati pe link-ul urmator:
+                    <a href="resurse/Etapa_0_TehniciWeb.docx" download="Etapa_0_TehniciWeb">Fisier download</a>
+                 </p>
+                </section>
+
+                <section id="index-intrebari">
+                    <h2>Întrebări Frecvente (FAQ)</h2>
+                
+                    <details>
+                        <summary>Ce tipuri de produse sportive găsesc la GSports Store?</summary>
+                        <p>Oferim o gamă variată de echipamente sportive, inclusiv îmbrăcăminte, încălțăminte, mingi, accesorii fitness și multe altele.</p>
+                    </details>
+                
+                    <details>
+                        <summary>Oferiți garanție pentru produsele vândute?</summary>
+                        <p>Da, toate produsele noastre vin cu garanție de calitate. Detaliile fiecărei garanții depind de produs și de producător.</p>
+                    </details>
+                
+                    <details>
+                        <summary>Cât durează livrarea produselor?</summary>
+                        <p>Livrarea durează între 24 și 48 de ore pentru produsele aflate în stoc. Pentru precomenzi, timpul de livrare poate varia.
+                        </p>
+                    </details>
+                </section>
+                
+                <section id="informatiiutile">
+                    <h2>Informații utile:</h2>
+                    <p>Calculul Indicelui de Masă Corporală (IMC) este realizat folosind următoarea formulă:</p>
+                    <math xmlns="https://www.w3.org/2020/Process-20200915/#rec-track">
+                        <mrow>
+                            <mi class="imc">IMC</mi>
+                            <mo>=</mo>
+                            <mfrac>
+                                <mi class="m">m</mi>
+                                <msup>
+                                    <mi class="h">h</mi>
+                                    <mn class="exponent">2</mn>
+                                </msup>
+                            </mfrac>
+                        </mrow>
+                    </math>
+                
+                    <p>Unde:</p>
+                    <ul>
+                        <li><strong>m</strong> = masa corporală în kilograme (kg)</li>
+                        <li><strong>h</strong> = înălțimea în metri (m)</li>
+                    </ul>
+                </section>
+        
+
+                <section id="catalog">
+                    <h2>Catalog Produse</h2>
+                    <p>Descarcă catalogul nostru de produse pentru a vedea gama completă de echipamente sportive disponibile.</p>
+                    <embed src="resurse/catalog-produs.pdf" type="application/pdf" width="35%" height="400px">
+                </section>
+            </div>
+
+            <section id="watermark"> Marcusanu <br> George </section>
+        </main>
+        
+        <footer id="footer">
+            <strong>Informatii de contact:</strong>
+            <address>
+                <p>Telefon: <a href="tel:+40733521368">+40 733 521 368</a></p>
+                <p>Scrie un mail catre: <a href="mailto:Gsports@gmail.com"> Gsports</a> </p>
+                <p>Sediul nostru se afla la: <a href="https://www.google.com/maps?q=Facultatea+de+Matematica+si+Informatica,+Bucuresti" target="_blank">Facultatea de Matematica si informatica</a></p>
+                <iframe class="facultate-mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.884301139316!2d26.09701177504997!3d44.43553547107577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff472f47f047%3A0x493984726f0235f9!2sFacultatea%20de%20Matematic%C4%83%20%C8%99i%20Informatic%C4%83!5e0!3m2!1sro!2sro!4v1741444948520!5m2!1sro!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <p>Ne puteti contacta pe whatsapp: <a href="https://wa.me/40700123456" target="_blank">WhatsApp Gsports</a></p>          
+                <p><small>&copy; 2024 GSports Store. Toate drepturile rezervate.</small></p>
+                <p>
+                    <small>Pagină creată pe 
+                        <time datetime="2024-03-04">4 martie 2024</time>.
+                    </small>
+                </p>
+            </address>
+            <a href="#" title="mergi sus" id="link-top"><div id="triunghi"></div></a>
+
+            <section 
+                id="absolut"> "Acesta este un proiect scolar."
+            </section>
+
+        </footer>
+    </body>
+</html>
+
+<!-- comentariu: ctrl+/ -->
+
+<!-- cuvinte cheie: sports store, sport stores near me,sports store near me
+sport store near me, sporting goods store near me,  -->

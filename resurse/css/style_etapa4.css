@@ -1,0 +1,28 @@
+/*Pentru etapa 4 */
+.video-container {
+    width: 80%;
+    max-width: 800px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+video {
+    width: 100%;
+    height: auto;
+    background-color: var(--culoare-background);
+}
+  
+/* subtitrari */
+::cue {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--culoare-background);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+::cue(:first-child) {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}

@@ -1,0 +1,77 @@
+#tab-orar {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#tab-orar th, 
+#tab-orar td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #tab-orar tr {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    #tab-orar thead {
+        float: left;
+        border-right: 1px solid #ddd;
+    }
+
+    #tab-orar thead tr {
+        display: block;
+    }
+
+    #tab-orar th {
+        display: block;
+        text-align: right;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #tab-orar tbody {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    #tab-orar tbody tr {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #ddd;
+    }
+
+    #tab-orar tbody td {
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+/* Mobile stacked layout */
+@media screen and (max-width: 767px) {
+    #tab-orar, 
+    #tab-orar thead, 
+    #tab-orar tbody, 
+    #tab-orar tr, 
+    #tab-orar th, 
+    #tab-orar td {
+        display: block;
+    }
+
+    #tab-orar td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    #tab-orar td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 15px;
+        text-align: left;
+        font-weight: bold;
+    }
+}

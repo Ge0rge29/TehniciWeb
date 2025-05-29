@@ -1,0 +1,39 @@
+@use '../../node_modules/bootstrap/scss/bootstrap' with (
+    $theme-colors: (
+        "primary": #2b6777,
+        "secondary": #52ab98,
+        "dark": #2b4249,
+        "light": #c8d8e4,
+        "info": #f2f2f2
+    ),
+
+    $grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 850px,
+        lg: 1200px,
+        xl: 1400px
+    ),
+
+    $container-max-widths: (
+        sm: 540px,
+        md: 820px,
+        lg: 1140px,
+        xl: 1320px
+    ),
+
+    $border-radius: .5rem,
+    $border-radius-lg: .8rem,
+    $border-radius-sm: .3rem,
+    $font-family-base: 'Roboto',
+    $font-family-sans-serif: 'Montserrat',
+    $font-size-base: 1rem,
+    $h1-font-size: 2.8rem,
+    $h2-font-size: 2.2rem,
+    $h3-font-size: 1.8rem,
+    $h4-font-size: 1.5rem,
+    $h5-font-size: 1.25rem,
+    $h6-font-size: 1rem,
+    $enable-shadows: true,
+    $enable-gradients: true
+);

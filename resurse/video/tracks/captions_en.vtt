@@ -1,0 +1,17 @@
+WEBVTT
+
+STYLE
+::cue {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #111;
+  text-align: center;
+}
+
+00:00.000 --> 00:04.000
+Welcome to the match between the best teams in Europe!
+
+00:05.000 --> 00:09.000
+Player number 10 is moving forward with the ball.
+
+00:10.000 --> 00:14.000
+A strong shot from the edge of the box... GOAL!

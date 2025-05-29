@@ -1,0 +1,98 @@
+#galerie-statica {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#grid-galerie {
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+    counter-reset: galerie-counter;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width: 1200px) {
+    #grid-galerie {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "img1 img2 img3"
+            "img4 . img5"
+            "img6 . img7"
+            "img8 img9 img10";
+    }
+
+    #grid-galerie figure:nth-child(1) { grid-area: img1; }
+    #grid-galerie figure:nth-child(2) { grid-area: img2; }
+    #grid-galerie figure:nth-child(3) { grid-area: img3; }
+    #grid-galerie figure:nth-child(4) { grid-area: img4; }
+    #grid-galerie figure:nth-child(5) { grid-area: img5; }
+    #grid-galerie figure:nth-child(6) { grid-area: img6; }
+    #grid-galerie figure:nth-child(7) { grid-area: img7; }
+    #grid-galerie figure:nth-child(8) { grid-area: img8; }
+    #grid-galerie figure:nth-child(9) { grid-area: img9; }
+    #grid-galerie figure:nth-child(10) { grid-area: img10; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    #grid-galerie {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #grid-galerie {
+        grid-template-columns: 1fr;
+    }
+}
+
+#grid-galerie figure {
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    counter-increment: galerie-counter;
+    transition: border 1.2s ease;
+}
+
+#grid-galerie figcaption::before {
+    content: counter(galerie-counter, upper-roman) ". ";
+}
+
+#grid-galerie img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform-origin: center;
+    transition: transform 1.2s ease;
+}
+
+#grid-galerie figcaption {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+#grid-galerie figure:hover {
+    border-width: 4px;
+}
+
+#grid-galerie figure:hover img {
+    transform: scale(1.25) rotate(-10deg);
+}
+
+#grid-galerie .attribution {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
+
+#grid-galerie .attribution a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+#grid-galerie .attribution a:hover {
+    text-decoration: underline;
+}

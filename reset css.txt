@@ -1,0 +1,93 @@
+
+/* reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* variabile */
+:root {
+    --spatiere-pagina: 80px;
+    --culoare-background: #212121;
+    --culoare-deschisa: #B7D2D9;
+    --culoare-principala: #1976D2; 
+    --culoare-secundara: #2604FC; 
+    --culoare-aprinsa: #7422D4; 
+    --culoare-border: #5D7BFF; 
+    --culoare-text: #ffffff;
+    --table-border: 1px solid var(--culoare-border);
+    --table-padding: 0.5rem;
+}
+
+/* stilizare */
+html {
+    font-size: 18px;
+}
+
+body {
+    color: var(--culoare-text);
+    background-color: var(--culoare-background);
+}
+
+/* liste*/
+ul {
+    list-style-type: none;
+    padding-left: 1.5rem;
+}
+
+ul li::before {
+    content: "•"; 
+    color: var(--culoare-aprinsa);
+    font-size: 1.2rem;
+    margin-right: 0.5em;
+}
+
+/* tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: var(--table-border);
+    padding: var(--table-padding);
+    text-align: left;
+}
+
+th {
+    background-color: var(--culoare-principala);
+    color: white;
+    font-weight: bold;
+}
+
+/* stilizarea*/
+.imc {
+    color: blue;
+    font-weight: bold;
+}
+
+.m {
+    color: red;
+    font-style: italic;
+}
+
+.h {
+    color: green;
+    font-style: italic;
+}
+
+.exponent {
+    color: purple;
+    font-weight: bold;
+}
+
+/* grid si layout */
+#grid-pagina {
+    display: grid;
+    grid-template-areas:
+        "acasa acasa acasa acasa"
+        "produse promotii promotii download"
+        "colaborari colaborari colaborari colaborari"
+        "informatiiutile informatiiutile catalog index-intrebari";
+}

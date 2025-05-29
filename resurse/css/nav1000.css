@@ -1,0 +1,15 @@
+/*Div ul cu clasa imag-icon din lista neordonata cu clasa meniu*/
+ul.meniu li div.imag-icon{
+    display: block;
+}
+
+ul.meniu li div.text-icon{
+    display: none;
+}
+
+@media (max-width: 1000px) { 
+    #orar {
+        overflow-x: scroll;  /* Scroll orizontal doar pe container */
+        white-space: nowrap; /* Evită ruperea textului în tabel */
+    }
+}

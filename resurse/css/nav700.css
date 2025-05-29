@@ -1,0 +1,206 @@
+#hamburger{
+    display: block;
+}
+
+ul.meniu{
+    display: none;
+    margin: 0;
+    width: 100%;
+    background-color: var(--culoare-aprinsa);
+}
+
+ul.meniu li{
+    margin:0;
+    width: 100%;
+}
+
+/* #hamburger>img{
+    height: var(--inaltime-meniu);
+    display: block;
+} */
+#ch-menu:checked+ul.meniu{
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+
+main{
+    margin-top:20px;
+}
+
+/* Stilizare submeniu de bază */
+ul.meniu li ul {
+    display: none;
+    width: 100%;
+    background-color: var(--culoare-aprinsa);
+    position: relative;
+}
+
+/* Când hamburger menu e activ */
+#ch-menu:checked + ul.meniu li ul {
+    display: none; /* Inițial ascuns */
+}
+
+/* Animație la hover când hamburger e activ */
+#ch-menu:checked + ul.meniu li:hover > ul {
+    display: block;
+    animation: submenuArrowAppear 0.3s ease-out forwards;
+}
+
+/* Keyframes pentru animația săgeții */
+@keyframes submenuArrowAppear {
+    0% {
+        clip-path: polygon(50% 0, 50% 0, 50% 0, 50% 0);
+        opacity: 0;
+    }
+    40% {
+        clip-path: polygon(45% 0, 55% 0, 55% 15px, 45% 15px);
+        opacity: 0.4;
+    }
+    60% {
+        clip-path: polygon(40% 0, 60% 0, 60% 30px, 50% 45px, 40% 30px);
+        opacity: 0.6;
+    }
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        opacity: 1;
+    }
+}
+
+/* Înlocuim prima opțiune cu icon căsuță când hamburger e activ */
+#ch-menu:checked + ul.meniu > li:first-child > a::before {
+    content: "🏠";
+    margin-right: 5px;
+}
+
+main{
+    margin-top:20px;
+}
+
+/* Submeniul - stilizare de bază */
+ul.meniu li ul {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    background-color: var(--culoare-aprinsa);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+}
+
+/* La click pe hamburger, pregătim submeniul */
+#ch-menu:checked + ul.meniu li ul {
+    position: relative;
+}
+
+/* Animația la hover când hamburger-ul e activ */
+#ch-menu:checked + ul.meniu li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    animation: submenuSlide 0.3s ease forwards;
+}
+
+@keyframes submenuSlide {
+    0% {
+        clip-path: polygon(50% 0, 50% 0, 50% 0, 50% 0);
+    }
+    50% {
+        clip-path: polygon(25% 0, 75% 0, 75% 50%, 25% 50%);
+    }
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+/* La hover pe elementul din meniu */
+ul.meniu li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    animation: submenuSlide 0.3s ease forwards;
+}
+
+/* Asigurăm tranziția corectă */
+ul.meniu ul {
+    transform-origin: top;
+    transition: clip-path 0.3s ease-out, opacity 0.3s ease-out;
+    position: relative;
+    z-index: 100;
+}
+
+.hamburger-icon {
+    position: relative;
+    width: 28px;
+    height: var(--inaltime-meniu);
+    cursor: pointer;
+    display: block;
+    margin-top: 5px;
+    animation: hamburgerAppear 0.8s ease-in-out forwards;
+}
+
+.hamburger-icon span {
+    position: absolute;
+    height: 4px; /* mai gros, mai vizibil */
+    width: 100%;
+    background-color: white;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+    margin-top: 5px; 
+    margin-left: 2px;
+    animation: barColorChange 0.8s ease-in-out forwards;
+}
+
+/* distanțare între linii */
+.hamburger-icon span:nth-child(1) {
+    top: 0px;
+}
+.hamburger-icon span:nth-child(2) {
+    top: 8px;
+}
+.hamburger-icon span:nth-child(3) {
+    top: 16px;
+}
+
+@keyframes hamburgerAppear {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    33% {
+        transform: scale(0.5) rotate(-90deg);
+        opacity: 0.3;
+    }
+    66% {
+        transform: scale(0.8) rotate(-45deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes barColorChange {
+    0% {
+        background-color: var(--culoare-deschisa);
+    }
+    33% {
+        background-color: var(--culoare-principala);
+    }
+    66% {
+        background-color: var(--culoare-secundara);
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+@media (max-width: 700px) { 
+    #orar {
+        overflow-x: scroll;  
+        white-space: nowrap; 
+    }
+}
+

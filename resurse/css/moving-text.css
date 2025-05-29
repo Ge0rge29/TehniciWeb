@@ -1,0 +1,24 @@
+.moving-text-container {
+    width: 100%;
+    overflow: hidden;
+    background: #2b6777;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+.moving-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: moveText 15s linear infinite;
+    color: white;
+    font-size: 1.2em;
+}
+
+@keyframes moveText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <title>Cerere GSports</title>
+        <%- include("../fragmente/head.ejs") %>
+        <link rel="stylesheet" href="/resurse/css/video-background.css">
+        <link rel="stylesheet" href="/resurse/css/gallery-animation.css">
+    </head>
+    <body>
+        <div class="video-background">
+            <video playsinline autoplay muted loop poster="/resurse/imagini/poster.jpg">
+                <source src="/resurse/video/background.mp4" type="video/mp4">
+                <source src="/resurse/video/background.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="content">
+            <%- include("../fragmente/header.ejs") %>
+            <main>
+                <h1>Trimite o Cerere</h1>
+                <div class="animated-gallery">
+                    <div class="gallery-container" data-columns="4">
+                        <% for(let imag of imaginiGalerie) { %>
+                            <img src="<%- imag.fisier %>" alt="<%- imag.descriere %>">
+                        <% } %>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <p>Completați formularul pentru a ne contacta</p>
+                </div>
+            </main>
+            <%- include("../fragmente/footer.ejs") %>
+        </div>
+    </body>
+</html>

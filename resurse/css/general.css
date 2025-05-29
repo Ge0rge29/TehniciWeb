@@ -1,0 +1,491 @@
+ /* h1 {
+    color: var(--primary-color);
+  }
+  
+  p {
+    color: var(--text-secondary);
+  }
+  
+  button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 2px solid var(--border-highlight);
+  }
+  
+  button:hover {
+    background-color: var(--button-hover);
+  } */
+  
+
+#grid-pagina{
+    display: grid; 
+    grid-template-areas: "acasa acasa acasa acasa" 
+                         "produse promotii promotii download"
+                         "colaborari colaborari colaborari colaborari"
+                         "informatiiutile informatiiutile catalog index-intrebari";
+}
+
+html{
+    font-size: 18px;
+}
+
+body{
+    --spatiere-pagina: 80px;
+    --culoare-background: #212121;
+    --culoare-deschisa: #B7D2D9;
+    --culoare-principala: #1976D2; 
+    --culoare-secundara: #2604FC; 
+    --culoare-aprinsa: #7422D4; 
+    --culoare-border: #5D7BFF; 
+}
+
+h2{
+    font-size: 1.6rem;
+}
+
+h3{
+    font-size: 1.3rem;
+}
+
+#grid-pagina > *{
+    outline: 1px solid rgb(80, 32, 32);
+    padding: 4px;
+}
+
+#grid-pagina > figure{
+    margin: 0;
+}
+#grid-pagina img{
+    width: 100%;
+    max-width: 1200px;
+    min-width: 100px;
+}
+/*
+header{
+    /* background-color: var(--primary-color);
+    color: var(--background-light);
+    padding: 10px;
+
+    border-radius: 10px; 
+    border: var(--border-color); 
+
+    box-shadow: var(--border-highlight); 
+}
+*/
+main{
+    padding-left: var(--spatiere-pagina);
+    padding-right: var(--spatiere-pagina);
+
+    /* background-color: var(--accent-dark);
+    color: var(--background-light);
+    padding: 10px;
+
+    border-radius: 10px; 
+    border: var(--border-color); 
+
+    box-shadow: var(--border-highlight); */
+}
+/*
+footer{
+     background-color: var(--accent-light);
+    color: var(--background-light);
+
+    border-radius: 10px; 
+    border: var(--border-color); 
+
+    box-shadow: var(--border-highlight); 
+}
+*/
+#acasa{
+    grid-area: acasa;
+}
+#colaborari{
+    grid-area: colaborari;
+}
+#produse{
+    grid-area: produse;
+}
+#promotii{
+    grid-area: promotii;
+}
+#download{
+    grid-area: download;
+}
+#index-intrebari{
+    grid-area: index-intrebari;
+}
+#informatiiutile{
+    grid-area: informatiiutile;
+}
+#catalog{
+    grid-area: catalog;
+}
+
+h1{
+    font-family: "Tinos", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+caption{
+    caption-side: bottom;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: 10px;
+}
+
+#tab-orar td:nth-child(odd),
+#tab-orar th:nth-child(odd) {
+    border-right: 2px solid var(--culoare-aprinsa); 
+}
+
+#tab-orar td:nth-child(even),
+#tab-orar th:nth-child(even) {
+    border-right: 2px solid var(--culoare-principala); 
+}
+
+#tab-orar {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tab-orar th, #tab-orar td {
+    border: 1px solid black; 
+}
+
+#tab-orar thead tr {
+    border-bottom: 3px solid black; 
+}
+
+
+#tab-orar tfoot tr {
+    border-top: 3px solid black;  
+} 
+
+#tab-orar tbody tr {
+    transition: box-shadow 0.5s ease-in-out; /* Animația începe lent, accelerează la mijloc și încetinește din nou la final. */
+}
+
+#tab-orar tbody tr:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5); /* Efect de umbră în interior */
+}
+
+.taburi-iframe>a{
+    display: block;
+    width: 115px;
+    height: 30px;
+    border: 1px solid var(--culoare-aprinsa);
+    background-color: var(--culoare-deschisa);
+    text-align: center;
+    border-top-right-radius: 55px;
+    padding-top: 15px;
+}
+
+.taburi-iframe{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: -21px;
+}
+
+.container-iframe{
+    width: 60%;
+    max-width: 500px;
+    min-width: 200px;
+    flex-direction: row-reverse;
+}
+
+.container-iframe>iframe{
+    width: 100%;
+}
+
+.taburi-iframe a.coach-moments {
+    align-self: flex-start;  /* nu merge sa l aliniez */
+    padding-top: 5px;  
+}
+
+.taburi-iframe a:hover {
+    color: white; 
+    background-color: var(--culoare-deschisa);  
+}
+
+.taburi-iframe a {
+    transition: color 2s ease, background-color 2s ease;  
+}
+
+#link-top{
+    position:fixed;
+    bottom:0.3em;
+    opacity:0.5;
+    left:0.3em;
+    width:3rem;
+    box-sizing: border-box;
+    height:3rem;
+    line-height:3rem;
+    text-align:center;
+    border:5px solid grey;
+    border-top-color:black;
+    border-bottom-color:black;
+    border-left-color: white;
+    border-right-color: white;
+    border-radius:50%;
+    background: rgb(220,220,220);
+    transition: all 1s ease; 
+  }
+#link-top:hover{
+    opacity:1;
+}
+
+#triunghi {
+    display: none; 
+}
+
+#link-top::after {
+    content: '↑'; 
+    font-size: 1.5rem; 
+    color: grey; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    transition: all 1s ease;
+}
+
+#link-top:hover {
+    opacity: 1;
+    transform: rotate(90deg); 
+}
+
+#link-top:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-90deg); 
+}
+
+.imc {
+    color: blue;
+    font-weight: bold;
+}
+.m {
+    color: red;
+    font-style: italic;
+}
+.h {
+    color: green;
+    font-style: italic;
+}
+.exponent {
+    color: purple;
+    font-weight: bold;
+}
+
+.imag-icon {
+    z-index: -10;
+}
+
+
+/* CSS PRINTARE */
+
+
+#watermark,#absolut{
+    display:none;
+}
+/* #grid-pagina {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;                    !!!
+    row-gap: 15px;
+    column-gap: 5px;
+    padding:10px;
+} */
+/* .celula {
+    background-color: lightblue;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+} foloseste la ceva asta?*/
+
+@media print {
+
+    #absolut{
+        position: absolute;
+        display: inline-block;
+        top: 101%;
+        width:200px;
+        height:35px;
+        border:5px double black;
+        right:0;
+        overflow: visible;
+        font-size:15px;
+    }
+    /* #absolut::after{
+        content:"Acesta este un proiect scolar.";                   !!!
+        position: absolute;
+        font-size:15px;
+        right:0;
+        border:5px double black;
+        width:200px;
+        height:35px;
+        display: inline-block;
+    } */
+
+    #colaborari, #catalog, #link-top, .facultate-mapa{
+        display: none;
+    }
+
+    #grid-pagina{
+        display: block; 
+    }
+
+    #grid-pagina > *{
+        outline: 1px solid white;
+        padding: 4px;
+    }
+
+    .imc, .m, .h, .exponent {
+        color: black;
+    }
+
+    a {
+        color: inherit;  /* ia culoarea textului parinte */
+        text-decoration: none;  /* scoate sublinierea*/
+    }
+
+    h1{
+        margin-top: 50%;
+        text-align:center;
+        margin-left:1cm;
+    }
+
+    ul.meniu {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul.meniu ul {
+        display: none !important;
+    }
+
+    footer {
+        page-break-before: always;
+    }
+
+    .meniu {
+        page-break-after: always; 
+    }
+
+
+        html, body {
+        width: 210mm;
+                overflow:visible !important;
+        }
+
+        
+    /* 
+    #grid-pagina div:nth-child(3){
+        
+        page-break-before:always;
+    }
+    forțează ca al 3-lea div din #grid-pagina să înceapă pe o pagină nouă atunci când documentul este tipărit. 
+    */
+
+        #watermark
+        {
+            display: block;
+            position: fixed;/*apare pe toate paginile*/
+            width: 60%;
+            height: 10%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* sau text align center */
+            color: rgba(0, 0, 0, 0.3);
+        }
+        /* #watermark::after{
+            
+            opacity:0.4;
+            padding:5px;
+            display: block;
+            background: white;
+            border:2px solid black;
+            border-top-left-radius:10px;
+            border-bottom-left-radius:10px;
+            border-right:none;
+            content:"Acesta este un proiect școlar!";
+        } */
+
+    #end{
+        page-break-before: always;
+    }
+
+
+    @page {
+        size: A4 portrait;
+        margin-bottom:2cm;
+        margin-top:2cm;
+        counter-increment: page;
+            
+    }
+    @page:left{
+
+        margin-left:2cm;
+        margin-right:1cm;
+        border-radius: 20cm;
+    }
+    @page:right{
+
+        margin-right:2cm;
+        margin-left:1cm;
+    }
+}
+
+
+@media screen and (max-width: 1200px){
+
+    html{
+        font-size: 14px;
+    }
+
+    body{
+        --spatiere-pagina: 50px;
+    }
+
+    #grid-pagina{
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "acasa acasa acasa" 
+                             "produse promotii download"
+                             "colaborari colaborari colaborari"
+                             "informatiiutile catalog index-intrebari";
+    }
+
+    #grid-pagina img{
+        width: 100%;
+        max-width: 750px;
+    }
+
+}
+  
+
+
+@media screen and (max-width: 800px){
+
+    html{
+        font-size: 10px;
+    }
+
+    body{
+        --spatiere-pagina: 20px;
+    }
+
+    #grid-pagina{
+        display: block;
+    }
+
+    #grid-pagina img{
+        width: 100%;
+        max-width: 450px;
+        min-width: 100px;
+    }
+
+}
+

@@ -1,0 +1,34 @@
+.fancy-hr {
+    height: 40px;
+    border: none;
+    margin: 2rem 0;
+    background: 
+        linear-gradient(to right, 
+            #ff00ff 5%, 
+            #ff00ff 95%);
+    background-size: 100% 8px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    filter: drop-shadow(0 0 2px #ff00ff);
+}
+
+.fancy-hr::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 4px solid rgb(255, 0, 0);
+    border-radius: 100%;
+    box-shadow: 0 0 12px rgb(255, 83, 241),
+                inset 0 0 12px rgb(255, 83, 241);
+}
+
+.article-text {
+    line-height: 1.6;
+    margin: 1rem 0;
+}

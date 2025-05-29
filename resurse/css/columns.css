@@ -1,0 +1,21 @@
+.column-text {
+    column-count: 3;
+    column-gap: 2rem;
+    column-rule: 2px solid #2b6777;
+    text-align: justify;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .column-text {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .column-text {
+        column-count: 1;
+        column-rule: none;
+    }
+}
