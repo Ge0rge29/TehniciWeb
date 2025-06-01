@@ -3,7 +3,31 @@ const path= require("path");
 const fs= require("fs"); 
 const sharp= require("sharp"); //biblioteca pentru manipularea imaginilor
 const sass= require("sass"); 
+const pg= require("pg"); //biblioteca pentru conectarea la baza de date PostgreSQL
 
+const Client=pg.Client; //clasa definita in pachet 
+
+client=new Client({  //constructorul care are un obiect
+    database:"proiect",
+    user:"george",
+    password:"parola",
+    host:"localhost",
+    port:5432
+})
+
+client.connect()
+client.query("select * from produse_sportive", function(err, rezultat ){ //functie call back cand se termina executia cu erori sau cu rezultat si functia ia raspunsul
+    console.log(err)    
+    console.log("Rezultat queri:", rezultat) //etapa 6 ex4
+})
+client.query("select * from unnest(enum_range(null::categ_produs))", function(err, rezultat ){ //ofera toate elementele care intra in enum e un vector de stringuri, selecteaza toate valorile din enum
+    console.log(err)    
+    console.log(rezultat) //unnest le transforma din string in vector de obiecte
+})
+
+// client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezultat ){
+//     console.log("Tipuri produse:", rezultat.rows);
+// });
 
 
 app= express(); // ruleaza serverul
@@ -19,8 +43,15 @@ obGlobal={
     obImagini: null,
     folderScss: path.join(__dirname,"resurse/scss"),
     folderCss: path.join(__dirname,"resurse/css"),
-    folderBackup: path.join(__dirname,"backup")
+    folderBackup: path.join(__dirname,"backup"),
+    optiuniMeniu: null
 }
+
+client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezultat ){ 
+    console.log(err)    
+    console.log("Tipuri produse:", rezultat) 
+    obGlobal.optiuniMeniu=rezultat.rows; //transmit in obiectul global optiunile de meniu. rezultat e ob nu vector care are ca proprietare rows care e vectorul cu inregistrari
+})
 
 vect_foldere=["temp", "backup", "temp1"]
 for (let folder of vect_foldere){
@@ -168,6 +199,16 @@ function afisareEroare(res, identificator, titlu, text, imagine){
 })
 
 }
+
+
+
+
+app.use("/", function(req, res, next){ //* daca nu ii dau calea aplica pe toate paginile, e un fel de implicit
+    res.locals.optiuniMeniu=obGlobal.optiuniMeniu; //in localsul raspunsului setez setez proprietatea suplimentara optinuiMeniu cu valorile din obGlobal.optiuniMeniu
+
+    next(); //next() trece mai departe , fara el ramnea blocat
+})
+
 app.use("/resurse", express.static(path.join(__dirname,"resurse")))      
 app.use("/rnode_modules", express.static(path.join(__dirname,"node_modules"))) 
 
@@ -234,6 +275,63 @@ app.get("/abc", function(req, res, next){
 app.get("/abc", function(req, res, next){
     console.log("------------------")
 })
+
+
+
+
+app.get("/produse", function(req, res){ //etapa 6 cerinta 1
+    console.log(req.query)
+    var conditieQuery="";
+    if (req.query.tip){
+        conditieQuery=` where tip_produs='${req.query.tip}'` //etapa 6 ex4
+    }
+
+    // if (req.query.tip) {
+    //     //aici am avut eroare pentru ca mi verifica altceva si am adaugat sa verificam daca filtrez dupa cateforie sau tip produs
+    //     if (['greutati', 'fishing', 'echipament', 'accesorii', 'diverse'].includes(req.query.tip)) {
+    //         conditieQuery = ` where categorie='${req.query.tip}'`;
+    //     } else if (['gantere', 'undite', 'rachete', 'mingi', 'altele'].includes(req.query.tip)) {
+    //         conditieQuery = ` where tip_produs='${req.query.tip}'`;
+    //     }
+    // }
+
+    queryOptiuni = "select * from unnest(enum_range(null::categ_produs))" // query care ne da toate valorile din enum
+    client.query(queryOptiuni, function(err, rezOptiuni){ //cu client.query executa queryul si transmitem functia care sa se execute cand priumeste raspuns
+        console.log(rezOptiuni)
+
+
+        queryProduse="select * from produse_sportive" + conditieQuery //fiind in functie cauta in taote produselse
+        client.query(queryProduse, function(err, rez){
+            if (err){
+                console.log(err);
+                afisareEroare(res, 2); //poate da eroare dar daca nu se transmita pe produse.ejs 
+            }
+            else{
+                res.render("pagini/produse", {produse: rez.rows, optiuni:rezOptiuni.rows})
+            }
+        })
+    })
+})
+
+
+app.get("/produs/:id", function(req, res){ //folosim un paramentru :id e un fel de variabila etapa 6 cerinta 2
+    console.log(req.params) //afiseaza in consola obiectul cu parametrii
+    client.query(`select * from produse_sportive where id=${req.params.id}`, function(err, rez){ //in loc sa concatenez cu id ul din req.params il scriu intre ${ } si face interpolare
+        if (err){ // acest query e trimis de clint.query catre baza de date  poate raspunde cu eroare sau rezultat, 
+            console.log(err);
+            afisareEroare(res, 2);
+        }
+        else{ // daca n am primit eroare selectam dupa id sa verificam daca e 1 sau 0 cu rowCount si daca sunt 0 produsul nu exista deci eroare 404
+            if (rez.rowCount==0){
+                afisareEroare(res, 404);
+            }
+            else{
+                res.render("pagini/produs", {prod: rez.rows[0]}) // daca existam afisam pagina 
+            }
+        }
+    })
+})
+
 
 
 app.get(/^\/resurse\/[a-zA-Z0-9_\/]*$/, function(req, res, next){

@@ -39,6 +39,15 @@ body{
     --culoare-border: #5D7BFF; 
 }
 
+body.dark {
+    background-color: var(--culoare-background);
+    color: var(--culoare-deschisa);
+    --culoare-principala: #163461b6;
+    --culoare-secundara: #1A237E;
+    --culoare-aprinsa: #00000096;
+    --culoare-border: #121631;
+}
+
 h2{
     font-size: 1.6rem;
 }

@@ -35,7 +35,10 @@ main{
     text-align: center;
 }
 .grid-produse .produs figure img{
-    border:1px solid grey
+    border:1px solid grey;
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
 }
 .grid-produse .produs .info-prod{
     display:flex;
@@ -78,4 +81,25 @@ main{
     background-color: var(--cl-marcare);
     
     border:1px solid  var(--culoare-mov);
+}
+
+.selectat{
+    color: var(--culoare-mov);
+    background-color: var(--culoare-roz-inchis);
+    font-weight: bold;
+}
+
+.caracteristici {
+    list-style: none;
+    padding: 0;
+}
+
+.caracteristici strong {
+    background-color: #f0f0f0;  /* sau o culoare la alegere */
+    padding: 2px 5px;
+    margin-right: 5px;
+}
+
+.caracteristici li {
+    margin-bottom: 8px;
 }

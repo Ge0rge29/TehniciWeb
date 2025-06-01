@@ -1,3 +1,4 @@
+<script src="/resurse/js/tema.js"></script> 
 <header id="titlu">
             <h1 style= "color:aqua;">GSports Store</h1>        
         </header>
@@ -42,19 +43,24 @@
                 <li><div class="text-icon"><a href="#">Despre</a>
                 </div><div class="imag-icon" ><span class="fa-solid fa-info-circle"></span></div>
                     <ul>                        
-                        <li><a href="despre.html#prezentare">Prezentare</a></li>
-                        <li><a href="despre.html#istoric">Istoric</a></li>
-                        <li><a href="despre.html#motivatie">Motivatie</a></li>
-                        <li><a href="despre.html#galerie">Galerie</a></li>
+                        <li><a href="/despre#prezentare">Prezentare</a></li>
+                        <li><a href="/despre#istoric">Istoric</a></li>
+                        <li><a href="/despre#motivatie">Motivatie</a></li>
+                        <li><a href="/despre#galerie">Galerie</a></li>
                     </ul>
                 </li>
                 <li><div class="text-icon"><a href="#">Produse</a>
                     </div><div class="imag-icon" ><span class="fa-solid fa-cart-shopping"></span></div>
                     <ul>
-                        <li><a href="http://www.google.com">Toate</a></li>
-                        <li><a href="#">Gantere</a></li>
-                        <li><a href="#">Undite</a></li>
-                        <li><a href="#">Rachete de tenis</a></li>
+                        <li><a href="/produse">Toate</a></li>                         <!--Etapa 6 ex4-->
+                        <!-- <li><a href="/produse?tip=gantere">Greutati</a></li>
+                        <li><a href="/produse?tip=undite">Fishing</a></li>
+                        <li><a href="/produse?tip=rachete">Echipament tenis</a></li>
+                        <li><a href="/produse?tip=mingi">Mingi</a></li>
+                        <li><a href="/produse?tip=altele">Diverse</a></li> -->
+                        <% for (let opt of locals.optiuniMeniu) { %>
+                            <li><a href="/produse?tip=<%= opt.unnest %>"><%= opt.unnest %></a></li>
+                       <% } %>
                     </ul>
                 
                 </li>
@@ -63,6 +69,10 @@
                     </div><div class="imag-icon" ><span class="fa-solid fa-phone-alt"></span></div>
                 </li>
             </ul>
+
+            <li><button id = "schimba_tema">Tema</button></li>
+
+
             <!-- <ul> 
                 <li><a href="#acasa">Acasă</a>
                     <ul>

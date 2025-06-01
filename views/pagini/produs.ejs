@@ -1,39 +1,56 @@
 <!DOCTYPE html>
-<html  lang="ro">
+<html lang="ro">
     <head>
-        <meta name="description" content="Cofetaria Dulcelind ofera prajituri, torturi, produse de patiserie cu optiunea de achizitie online si livrare prin curier.">
-        <meta name="keywords" content="cofetarie, Dulcelind, prajituri, torturi, dulce, pateuri, produse">
+        <meta name="description" content="GSports Store oferă gantere, undițe, rachete de tenis și alte produse sportive de calitate.">
+        <meta name="keywords" content="sport, gantere, undite, rachete, antrenament, echipamente">
         
-        <title>Cofetăria Dulcelind - home</title>
+        <title>GSports Store - Produs</title>
         <%- include("../fragmente/head") %>     
         <link href="/resurse/css/produs.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <header class="c1" id="titlu" >
-            <h1 style="color:red;">Cofetaria <span>Dulcelind</span></h1>
-            <%- include("../fragmente/nav") %>
-        </header>
-    <main>
-        <section>
-            <h2>Pagină produs</h2>
-                <article id="art-produs">
+        
+            <%- include("../fragmente/header") %>
+
+
+        <main>
+            <section>
+                <h2>Detalii produs</h2>
+                <article id="art-produs"> <!-- //etapa 6 cerinta 2-->
                     <h3><span class="nume"><%- locals.prod.nume %></span></h3>
-                    <p>Pret: <span class="pret"><%- locals.prod.pret %> </span></p>
-                    <p>Descriere: <span class="descriere"><%- locals.prod.descriere %> </span></p>
-                    <p>Ingrediente: <span class="ingrediente"><%- locals.prod.ingrediente %> </span></p>
-                    <p>Calorii: <span class="calorii"><%- locals.prod.calorii %> </span></p>
-                    <p>Gramaj: <span class="gramaj"><%- locals.prod.gramaj %> </span></p>
-                    <p>Categorie: <span class="categorie"><%- locals.prod.categorie %> </span></p>
-                    <p>Pentru diabetici: <span class="pt_diabetici"><%- locals.prod.pt_diabetici %> </span></p>
-                    <p>Data adăugare: <span class="categorie"><%- locals.prod.data_adaugare %> </span></p>
+                    <p>Preț: <span class="pret"><%- locals.prod.pret %> RON</span></p>
+                    <p>Descriere: <span class="descriere"><%- locals.prod.descriere %></span></p>
+
+                    <p>Subcategorie: <span class="subcategorie"><%- locals.prod.subcategorie %></span></p>
+
+                    <p>Culoare: <span class="culoare"><%- locals.prod.culoare %></span></p>
+
+                    <p>Etichete: <span class="ingrediente">
+                        <% if (locals.prod.etichete) { %>
+                            <%= locals.prod.etichete.split(',').join(', ') %>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </span></p>
+
+                    <p>Durabilitate: <span class="calorii"><%- locals.prod.durabilitate %></span></p>
+                    <p>Greutate: <span class="gramaj"><%- locals.prod.greutate %> g</span></p>
+                    <p>Categorie: <span class="categorie"><%- locals.prod.categorie %></span></p>
+                    <p>Potrivit pentru începători: <span class="pt_diabetici"><%- locals.prod.pentru_incepatori %></span></p>
+                    <p>Data adăugării: 
+                        <time datetime="<%- locals.prod.data_adaugare %>">
+                            <%- new Date(locals.prod.data_adaugare).toLocaleDateString('ro-RO', 
+                                {weekday:'long', year:'numeric', month:'long', day:'numeric'}) %>
+                        </time>
+                    </p>
+
                     <figure class="imag-produs">
-                        <img  src="/resurse/imagini/produse/<%- locals.prod.imagine %>" alt="[imagine <%- locals.prod.nume %>]" />
+                        <img src="/resurse/imagini/produse/<%- locals.prod.imagine %>" alt="[imagine <%- locals.prod.nume %>]" />
                     </figure>    
                 </article>
-            
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <%- include("../fragmente/footer") %>
+        <%- include("../fragmente/footer") %>
     </body>
 </html>

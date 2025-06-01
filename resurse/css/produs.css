@@ -21,10 +21,10 @@ h2{
     font-weight: normal;
 }
 #art-produs p:nth-of-type(even){
-    background-color: var(--culoare-roz-inchis);
+    background-color: var(purple);
 }
 #art-produs p:nth-of-type(odd){
-    background-color: var(--cl-marcare);
+    background-color: var(red);
 }
 .imag-produs{
     text-align: center;
