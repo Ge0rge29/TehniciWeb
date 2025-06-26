@@ -2,26 +2,80 @@
     display: block;
 }
 
+/* Show the checkbox input for hamburger menu functionality */
+#ch-menu {
+    display: none; /* Keep hidden but functional */
+    opacity: 0;
+    position: absolute;
+}
+
+nav {
+    position: relative; /* Make sure the nav container has relative positioning */
+    z-index: 10; /* Standard z-index, just needs to be positive */
+}
+
 ul.meniu{
     display: none;
     margin: 0;
     width: 100%;
     background-color: var(--culoare-aprinsa);
+    position: absolute; /* Position absolutely to ensure it's on top */
+    left: 0;
+    top: 100%; /* Position it right below the header/nav bar */
+    z-index: 9999; /* High z-index - this will be overridden by menu-fix.css */
+    /* Setări pentru animație */
+    opacity: 0;
+    transform: translateX(-100%);
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 }
 
 ul.meniu li{
     margin:0;
     width: 100%;
+    opacity: 0;
+}
+
+/* Animație pentru fiecare element din meniu cu întârzieri progresive */
+#ch-menu:checked + ul.meniu li {
+    animation: menuItemAppear 0.5s ease-out forwards;
+}
+
+#ch-menu:checked + ul.meniu li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+#ch-menu:checked + ul.meniu li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+#ch-menu:checked + ul.meniu li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+#ch-menu:checked + ul.meniu li:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+#ch-menu:checked + ul.meniu li:nth-child(5) {
+    animation-delay: 0.5s;
 }
 
 /* #hamburger>img{
     height: var(--inaltime-meniu);
     display: block;
 } */
-#ch-menu:checked+ul.meniu{
-    display: block;
-    position: relative;
-    z-index: 10;
+#ch-menu:checked + ul.meniu{
+    display: block !important;
+    position: absolute !important; /* Changed to absolute for better positioning */
+    top: 100% !important; /* Position right below the nav */
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 999 !important; /* High z-index */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(0) !important;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
+    animation: menuArrowAppear 1.2s ease-out forwards;
 }
 
 main{
@@ -45,6 +99,9 @@ ul.meniu li ul {
 #ch-menu:checked + ul.meniu li:hover > ul {
     display: block;
     animation: submenuArrowAppear 0.3s ease-out forwards;
+    transform: none; /* Pentru a nu interfera cu animația principală */
+    position: relative; /* Ensure proper positioning */
+    z-index: 10001; /* Very high z-index */
 }
 
 /* Keyframes pentru animația săgeții */
@@ -77,30 +134,6 @@ main{
     margin-top:20px;
 }
 
-/* Submeniul - stilizare de bază */
-ul.meniu li ul {
-    visibility: hidden;
-    position: absolute;
-    width: 100%;
-    background-color: var(--culoare-aprinsa);
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
-}
-
-/* La click pe hamburger, pregătim submeniul */
-#ch-menu:checked + ul.meniu li ul {
-    position: relative;
-}
-
-/* Animația la hover când hamburger-ul e activ */
-#ch-menu:checked + ul.meniu li:hover > ul {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-    animation: submenuSlide 0.3s ease forwards;
-}
-
 @keyframes submenuSlide {
     0% {
         clip-path: polygon(50% 0, 50% 0, 50% 0, 50% 0);
@@ -113,22 +146,6 @@ ul.meniu li ul {
     }
 }
 
-/* La hover pe elementul din meniu */
-ul.meniu li:hover > ul {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-    animation: submenuSlide 0.3s ease forwards;
-}
-
-/* Asigurăm tranziția corectă */
-ul.meniu ul {
-    transform-origin: top;
-    transition: clip-path 0.3s ease-out, opacity 0.3s ease-out;
-    position: relative;
-    z-index: 100;
-}
-
 .hamburger-icon {
     position: relative;
     width: 28px;
@@ -137,6 +154,7 @@ ul.meniu ul {
     display: block;
     margin-top: 5px;
     animation: hamburgerAppear 0.8s ease-in-out forwards;
+    overflow: hidden; /* pentru a ascunde animația în afara containerului */
 }
 
 .hamburger-icon span {
@@ -152,15 +170,18 @@ ul.meniu ul {
     animation: barColorChange 0.8s ease-in-out forwards;
 }
 
-/* distanțare între linii */
+/* distantare intre linii */
 .hamburger-icon span:nth-child(1) {
     top: 0px;
+    animation-delay: 0.2s;
 }
 .hamburger-icon span:nth-child(2) {
     top: 8px;
+    animation-delay: 0.3s;
 }
 .hamburger-icon span:nth-child(3) {
     top: 16px;
+    animation-delay: 0.4s;
 }
 
 @keyframes hamburgerAppear {
@@ -194,6 +215,47 @@ ul.meniu ul {
     }
     100% {
         background-color: white;
+    }
+}
+
+/* Animația pentru meniu - de la stânga la dreapta ca o săgeată */
+@keyframes menuArrowAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    }
+    20% {
+        opacity: 0.5;
+        transform: translateX(-70%);
+        clip-path: polygon(0 0, 30% 0, 40% 50%, 30% 100%, 0 100%);
+    }
+    40% {
+        opacity: 0.7;
+        transform: translateX(-40%);
+        clip-path: polygon(0 0, 60% 0, 70% 50%, 60% 100%, 0 100%);
+    }
+    60% {
+        opacity: 0.8;
+        transform: translateX(-20%);
+        clip-path: polygon(0 0, 80% 0, 90% 50%, 80% 100%, 0 100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+/* Animația pentru elementele individuale din meniu */
+@keyframes menuItemAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 

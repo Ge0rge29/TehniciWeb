@@ -1,0 +1,43 @@
+.animated-gallery {
+  width: 300px;
+  height: 300px;
+  margin: 2rem auto;
+  position: relative;
+  overflow: hidden;
+  border: 15px solid;
+  border-image: url("/resurse/imagini/border-pattern.png") 30 stretch;
+}
+.animated-gallery:hover .gallery-container {
+  animation-play-state: paused;
+}
+
+.gallery-container {
+  width: 200%;
+  height: 200%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, 50%);
+  gap: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: galleryAnimation 24s infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes galleryAnimation {
+  0%, 10% {
+    transform: scale(1);
+  }
+  45%, 55% {
+    transform: scale(0.3);
+  }
+  90%, 100% {
+    transform: scale(1) translateX(-100%) translateY(-100%);
+  }
+}
+@media (max-width: 1200px) {
+  .animated-gallery {
+    display: none;
+  }
+}

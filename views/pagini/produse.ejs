@@ -11,87 +11,187 @@
     </head>
     <body>
 
-    <%- include("../fragmente/header") %>
+    <%- include("../fragmente/header") %>        
+    <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-floating mb-3"> <!-- textarea nume produs-->
+                            <textarea id="inp-nume" class="form-control" rows="1" placeholder=" "></textarea>
+                            <label for="inp-nume">Nume produs</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <p class="mb-2">Durabilitate:</p>
+                        <!-- bonus1 radio buttons cu intervale dinamice bazate pe datele reale -->
+                        <% if (locals.durabilitate) { %>
+                            <% 
+                                const minDur = locals.durabilitate.min_durabilitate;
+                                const maxDur = locals.durabilitate.max_durabilitate;
+                        const rangeLow = Math.floor((maxDur - minDur) / 3) + minDur;
+                        const rangeHigh = Math.floor(2 * (maxDur - minDur) / 3) + minDur;
+                    %>
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad1" value="<%= minDur %>:<%= rangeLow %>" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad1">Scăzută (&lt; <%= rangeLow %>)</label>
 
-        <main>
-            <label>Nume produs:<br/>
-                <textarea id="inp-nume" rows="1" cols="30" placeholder="Introduceți numele produsului..."></textarea>
-            </label>
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad2" value="<%= rangeLow %>:<%= rangeHigh %>" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad2">Mediu (<%= rangeLow %> - <%= rangeHigh %>)</label>
 
-            <div>Durabilitate:
-                <p><label>Scăzută (&lt; 80)
-                    <input id="i_rad1" name="gr_rad" value="0:80" type="radio"/>
-                </label></p>
-                <p><label>Mediu (80 - 95)
-                    <input id="i_rad2" name="gr_rad" value="80:95" type="radio"/>
-                </label></p>
-                <p><label>Ridicată (&ge; 95)
-                    <input id="i_rad3" name="gr_rad" value="95:1000000000" type="radio"/>
-                </label></p>
-                <p><label>Toate
-                    <input id="i_rad4" checked name="gr_rad" value="toate" type="radio"/>
-                </label></p>
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad3" value="<%= rangeHigh %>:<%= maxDur %>" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad3">Ridicată (&ge; <%= rangeHigh %>)</label>
+                <% } else { %>
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad1" value="0:80" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad1">Scăzută (&lt; 80)</label>
+
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad2" value="80:95" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad2">Mediu (80 - 95)</label>
+
+                    <input type="radio" class="btn-check" name="gr_rad" id="i_rad3" value="95:1000000000" autocomplete="off">
+                    <label class="btn btn-outline-primary me-2" for="i_rad3">Ridicată (&ge; 95)</label>
+                <% } %>
+
+                <input type="radio" class="btn-check" name="gr_rad" id="i_rad4" value="toate" checked autocomplete="off">
+                <label class="btn btn-outline-primary" for="i_rad4">Toate</label>
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Preț minim:</label>
+                <div class="range-container">
+                    <!-- Bonus1 folosim valorile dinamice din baza de date pentru min/max -->
+                    <span class="range-value min-value"><%= locals.pretMinMax ? locals.pretMinMax.min_pret : 0 %></span>
+                    <input type="range" class="form-range" id="inp-pret" 
+                           value="<%= locals.pretMinMax ? locals.pretMinMax.min_pret : 0 %>" 
+                           min="<%= locals.pretMinMax ? locals.pretMinMax.min_pret : 0 %>" 
+                           max="<%= locals.pretMinMax ? locals.pretMinMax.max_pret : 700 %>">
+                    <span class="range-value max-value"><%= locals.pretMinMax ? locals.pretMinMax.max_pret : 700 %></span>
+                    <span id="infoRange" class="current-value">(<%= locals.pretMinMax ? locals.pretMinMax.min_pret : 0 %>)</span>
+                </div>
             </div>
 
-            <label>Preț minim: <input type="range" id="inp-pret" value="0" min="0" max="700"> <span id="infoRange">(0)</span></label>
-
             <label>Categorie:
-                <select id="inp-categorie">
+                <select id="inp-categorie" class="form-select">
                     <option selected value="toate">Toate</option> <!-- selected ia value cand intri pe pagina -->
                     <% for (let opt of locals.optiuni) { %>
                         <option value="<%- opt.unnest %>"><%- opt.unnest %></option>
                     <% } %>
                 </select>
-            </label>
-
+            </label>            
             <label>Subcategorie:
-                <select id="inp-subcategorie">
+                <select id="inp-subcategorie" class="form-select">
                     <option selected value="toate">Toate</option>
                     <% if (locals.suboptiuni) { %>
                         <% for (let sub of locals.suboptiuni) { %>
-                            <option value="<%- sub.unnest %>"><%- sub.unnest %></option>
+                            <option value="<%- sub.subcategorie %>"><%- sub.subcategorie %></option>
                         <% } %>
                     <% } %>
                 </select>
-            </label>            <label>Culoare: 
-                <input type="text" id="inp-culoare" placeholder="ex: rosu" list="culori-lista">
+            </label>
+              <label>Culoare: 
+                <input type="text" id="inp-culoare" class="form-control" placeholder="ex: rosu" list="culori-lista">
                 <datalist id="culori-lista">
-                    <option value="rosu">
-                    <option value="albastru">
-                    <option value="verde">
-                    <option value="galben">
-                    <option value="negru">
-                    <option value="alb">
+                    <% if (locals.culoriOptiuni) { %>
+                        <% for (let culoare of locals.culoriOptiuni) { %>
+                            <option value="<%- culoare.culoare %>">
+                        <% } %>
+                    <% } else { %>
+                        <option value="rosu">
+                        <option value="albastru">
+                        <option value="verde">
+                        <option value="galben">
+                        <option value="negru">
+                        <option value="alb">
+                    <% } %>
                 </datalist>
+            </label>            
+            <label>Etichete (virgule): 
+
+                <input type="text" id="inp-etichete" class="form-control" 
+                       placeholder="ex: carbon,eco" list="etichete-lista">
+                <datalist id="etichete-lista">
+                    <% if (locals.eticheteOptiuni) { %>
+                        <% for (let eticheta of locals.eticheteOptiuni) { %>
+                            <option value="<%- eticheta.eticheta.trim() %>">
+                        <% } %>
+                    <% } else { %>
+                        <option value="carbon">
+                        <option value="eco">
+                        <option value="premium">
+                        <option value="rezistent">                    <% } %>
+                </datalist>
+            </label>            
+            <label>Greutate maximă (g):
+                <% if (locals.greutateStats) { %>
+                    <input type="number" id="inp-greutate-max" class="form-control" 
+                           min="<%= Math.floor(locals.greutateStats.min_greutate) %>"
+                           max="<%= Math.ceil(locals.greutateStats.max_greutate) %>"
+                           step="1"
+                           placeholder="Max <%= Math.ceil(locals.greutateStats.max_greutate) %> g"
+                           value="<%= Math.ceil(locals.greutateStats.max_greutate) %>">
+                <% } else { %>
+                    <!-- Fallback pentru compatibilitate -->
+                    <input type="number" id="inp-greutate-max" class="form-control" 
+                           min="0" max="100000" step="1" placeholder="Max 100000 g" value="100000">
+                <% } %>
             </label>
 
-            </label>            
-            
-            <label>Etichete (virgule): <input type="text" id="inp-etichete" placeholder="ex: carbon,eco"></label>
-
-            <label>Observații căutare:<br/>
-                <textarea id="inp-observatii" rows="3" cols="40" placeholder="Adăugați orice observații sau cerințe specifice pentru căutare..."></textarea>
-            
-            <label><input type="checkbox" id="inp-noutati"> Noutăți (produse noi)</label>
+            <div class="form-floating mb-3">
+                <% 
+                    const maxLength = locals.textStats ? Math.ceil(locals.textStats.avg_length * 2) : 250;
+                %>
+                <textarea id="inp-observatii" class="form-control" rows="3" 
+                          placeholder=" " 
+                          maxlength="<%= maxLength %>"
+                          data-dynamic-limit="true">
+                </textarea>
+                <label for="inp-observatii">Observații căutare (max <%= maxLength %> caractere)</label>
+                <div class="invalid-feedback">
+                    Vă rugăm să introduceți observații valide.
+                </div>
+            </div>      
+            <div class="mb-3">
+                <input type="checkbox" class="btn-check" id="inp-noutati" autocomplete="off"
+                       <% if (locals.noutati && locals.noutati.produse_noi == 0) { %>disabled<% } %>>
+                <label class="btn btn-outline-primary" for="inp-noutati">
+                    <% if (locals.noutati) { %>
+                        Noutăți (<%= locals.noutati.produse_noi %> produse noi)
+                    <% } else { %>
+                        Noutăți (produse noi)
+                    <% } %>
+                </label>                
+                <% if (locals.noutati && locals.noutati.produse_noi == 0) { %>
+                    <small class="text-muted d-block">Nu există produse noi în ultimele 30 de zile</small>
+                <% } %>
+            </div>
 
             <p>
-                <button id="filtrare">Filtrează</button> 
-                <button id="resetare">Resetează</button><br/>
-                <button id="sortCrescNume">Sortează crescător după preț și nume</button>
-                <button id="sortDescrescNume">Sortează descrescător după preț și nume</button>
-            </p>
-
+                <button id="filtrare" class="btn btn-primary">
+                    <i class="bi bi-funnel-fill d-inline"></i>
+                    <span class="d-none d-md-inline">Filtrează</span>
+                </button> 
+                <button id="resetare" class="btn btn-secondary">
+                    <i class="bi bi-arrow-counterclockwise d-inline"></i>
+                    <span class="d-none d-md-inline">Resetează</span>
+                </button><br/>
+                <button id="sortCrescNume" class="btn btn-primary"> <!-- Pentru stilizarea cu bootstrap-->
+                    <i class="bi bi-sort-down d-inline"></i>
+                    <span class="d-none d-md-inline">Sortează crescător după preț și nume</span>
+                </button>
+                <button id="sortDescrescNume" class="btn btn-primary">
+                    <i class="bi bi-sort-up d-inline"></i>
+                    <span class="d-none d-md-inline">Sortează descrescător după preț și nume</span>
+                </button>
+            </p>                </div>
+            </div>
             <p id="p-suma">Apăsați Alt+"c" pentru suma prețurilor produselor afișate.</p>
 
-            <section id="produse"> <!--Etapa 6 ex 5-->
+            <section id="produse"><!--Etapa 6 ex 5-->
                 <h2>Produse sportive</h2>                
-                <div class="grid-produse">                    
+                <div class="grid-produse">        <!--Afisare grid/flexbox-->            
                     <% for(let prod of locals.produse) { %> 
                         <article class="produs <%- prod.categorie %>" >
                             <h3 class="nume">Nume: <a href="/produs/<%- prod.id %>"><span class="val-nume"><%- prod.nume %></span></a></h3>
-                        <div class="info-prod">
-                            <ul class="caracteristici">
+                        <div class="info-prod">                            <ul class="caracteristici">
                                 <li><strong>Preț:</strong> <span class="val-pret"><%- prod.pret %></span> RON</li>
+                                <li><strong>Greutate:</strong> <span class="val-greutate"><%- prod.greutate %></span> g</li>
                                 <li><strong>Culoare:</strong> <span class="val-culoare"><%- prod.culoare %></span></li>
                                 <li><strong>Etichete:</strong> <span class="val-etichete"><%- prod.etichete %></span></li>
                                 <li><strong>Durabilitate:</strong> <span class="val-durabilitate"><%- prod.durabilitate %></span></li>
@@ -106,11 +206,10 @@
                             </ul>                        </div>                            <p class="categorie">Categorie: <span class="val-categorie"><%- prod.categorie %></span></p>
                             <figure>
                                 <a href="/produs/<%- prod.id %>"><img src="/resurse/imagini/produse/<%- prod.imagine %>" alt="[imagine <%- prod.nume %>]" /></a>
-                            </figure>
-                            <label class="selecteaza-cos">
-                                Selectează:<br/>
-                                <input type="checkbox" class="select-cos" value="<%- prod.id %>" autocomplete="off">
-                            </label>
+                            </figure>                            <div class="selecteaza-cos">
+                                <input type="checkbox" class="btn-check select-cos" id="select-<%- prod.id %>" value="<%- prod.id %>" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="select-<%- prod.id %>">Selectează</label>
+                            </div>
                         </article>
                     <% } %>
                 </div>

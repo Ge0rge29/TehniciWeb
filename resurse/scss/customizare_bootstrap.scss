@@ -31,9 +31,17 @@
     $h1-font-size: 2.8rem,
     $h2-font-size: 2.2rem,
     $h3-font-size: 1.8rem,
-    $h4-font-size: 1.5rem,
-    $h5-font-size: 1.25rem,
+    $h4-font-size: 1.5rem,    $h5-font-size: 1.25rem,
     $h6-font-size: 1rem,
     $enable-shadows: true,
-    $enable-gradients: true
+    $enable-gradients: true,
+
+    $form-range-thumb-width: 1.5rem,           
+    $form-range-thumb-height: 1.5rem,          
+    $form-range-thumb-bg: #2b6777,            // Culoarea bulinei
+    $form-range-track-bg: #52ab98,         
+    $form-range-track-height: .5rem,           
+    $form-range-thumb-border: 0,               
+    $form-range-thumb-border-radius: 50%,      
+    $form-range-thumb-active-bg: tint-color(#2b6777, 30%)  
 );

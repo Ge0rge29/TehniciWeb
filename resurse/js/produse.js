@@ -5,16 +5,62 @@ alert(a)
 alert(window.a) */
 
 window.onload = function() { //cand s a incarcat ferestrea si s a citit tot atunci selecteaza butonul dupa id.
+    // Funcție pentru validarea textareas
+    function validateTextarea(textarea, value) {
+        let isValid = true;
+        value = value.trim();
+
+        // Validări specifice pentru fiecare textarea
+        if (textarea.id === 'inp-nume') {
+            if (value !== "" && /\d/.test(value)) {
+                textarea.classList.add('is-invalid');
+                textarea.parentElement.classList.add('is-invalid');
+                isValid = false;
+            }
+        } else if (textarea.id === 'inp-observatii') {
+            if (value.length > 200) {
+                textarea.classList.add('is-invalid');
+                textarea.parentElement.classList.add('is-invalid');
+                isValid = false;
+            }
+        }
+
+        // Dacă este valid, eliminăm clasele de eroare
+        if (isValid) {
+            textarea.classList.remove('is-invalid');
+            textarea.parentElement.classList.remove('is-invalid');
+        }
+
+        return isValid;
+    }
+
+    // Adăugăm event listeners pentru validare în timp real
+    ['inp-nume', 'inp-observatii'].forEach(id => {
+        let textarea = document.getElementById(id);
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                validateTextarea(this, this.value);
+            });
+        }
+    });
+
     let btn = document.getElementById("filtrare"); //pot sa selectez butonul dupa id
     if(btn) {
         btn.onclick = function(e) { //adaugam parametrul e pentru event
             e.preventDefault(); //prevenim comportamentul implicit al formularului
-            
-            // Preluăm valorile din toate câmpurile de filtrare
-            let inpNume = document.getElementById("inp-nume").value.trim().toLowerCase();
-            let inpCuloare = document.getElementById("inp-culoare").value.trim().toLowerCase();
+              // VALIDARE: numele să nu conțină cifre (pentru că este folosit în filtrare)
+            let inpNumeElem = document.getElementById("inp-nume");
+            let inpNume = inpNumeElem.value.trim().toLowerCase();
+            inpNumeElem.style.border = ""; // resetare
+
+            if (inpNume !== "" && /\d/.test(inpNume)) {
+                alert("Numele nu trebuie să conțină cifre!");
+                inpNumeElem.style.border = "2px solid red";
+                return;
+            }            let inpCuloare = document.getElementById("inp-culoare").value.trim().toLowerCase();
             let inpEtichete = document.getElementById("inp-etichete").value.trim().toLowerCase();
             let inpSubcategorie = document.getElementById("inp-subcategorie").value.trim().toLowerCase();
+            let inpObservatii = document.getElementById("inp-observatii").value.trim().toLowerCase();
             let inpNoutati = document.getElementById("inp-noutati").checked;
             
             // Preluăm durabilitatea (codul existent)
@@ -34,14 +80,21 @@ window.onload = function() { //cand s a incarcat ferestrea si s a citit tot atun
                 }
             }
 
-            let inpPret = parseFloat(document.getElementById("inp-pret").value);
+            // VALIDARE să fie ales un radio button
+            if (!inpDurabilitate) {
+                alert("Selectați o opțiune pentru durabilitate!");
+                return;
+            }            let inpPret = parseFloat(document.getElementById("inp-pret").value);
             let inpCategorie = document.getElementById("inp-categorie").value.trim().toLowerCase();
+            
+            // Bonus1 Adăugăm filtrarea după greutate maximă
+            let inpGreutateMax = parseFloat(document.getElementById("inp-greutate-max").value);
             
             let produse = document.getElementsByClassName('produs');
             for (let prod of produse) {
                 prod.style.display = 'none';
                 
-                // Verificăm toate condițiile
+                // Verificăm toateconditiile
                 let nume = prod.getElementsByClassName('val-nume')[0].innerText.trim().toLowerCase();
                 let culoare = prod.getElementsByClassName('val-culoare')[0].innerText.trim().toLowerCase();
                 let etichete = prod.getElementsByClassName('val-etichete')[0].innerText.trim().toLowerCase();
@@ -50,60 +103,110 @@ window.onload = function() { //cand s a incarcat ferestrea si s a citit tot atun
                 let categorie = prod.getElementsByClassName('val-categorie')[0].innerText.trim().toLowerCase();
                 let dataAdaugare = new Date(prod.getElementsByTagName('time')[0].getAttribute('datetime'));
                 
-                // Verificăm toate condițiile de filtrare
+                // Bonus1 Extragem greutatea produsului
+                let greutate = parseFloat(prod.getElementsByClassName('val-greutate')[0].innerText);
+                
+                // Verifica toate conditiile de filtrare
                 let cond1 = nume.startsWith(inpNume);
                 let cond2 = inpDurabilitate === "toate" ? true : (durabilitate >= minDurabilitate && durabilitate <= maxDurabilitate);
-                let cond3 = pret >= inpPret; // Change condition to filter products with price greater than or equal to inpPret
-                let cond4 = (inpCategorie === "toate" || inpCategorie === categorie);
+                let cond3 = pret >= inpPret; 
+                let cond4 = (inpCategorie === "toate" || inpCategorie === categorie);               
                 let cond5 = (inpCuloare === "" || culoare.includes(inpCuloare));
                 let cond6 = (inpEtichete === "" || inpEtichete.split(",").every(eticheta => 
-                    etichete.includes(eticheta.trim())));
+                    etichete.includes(eticheta.trim())));                
                 let cond7 = (inpSubcategorie === "toate" || inpSubcategorie === "");
                 
-                // Verificăm dacă e produs nou (maxim 7 zile)
-                let cond8 = !inpNoutati || (new Date() - dataAdaugare) / (1000 * 60 * 60 * 24) <= 7;
+                let cond8 = !inpNoutati || (new Date() - dataAdaugare) / (1000 * 60 * 60 * 24) <= 30;
                 
-                if (cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8) {
+                let cond9 = greutate <= inpGreutateMax;
+                
+                let cond10 = (inpObservatii === "" || 
+                    nume.includes(inpObservatii) || 
+                    etichete.includes(inpObservatii));
+                  if (cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8 && cond9 && cond10) {
                     prod.style.display = 'block';
                 }
+            }
+            
+            // Bonu3 verifica daca sunt produse vizibile
+            let anyVisible = false;
+            for (let prod of produse) {
+                if (prod.style.display === 'block') {
+                    anyVisible = true;
+                    break;
+                }
+            }
+            
+            let noProductsMessage = document.getElementById("no-products-message");
+            if (!noProductsMessage) {
+                // Daca nu e il cree
+                noProductsMessage = document.createElement("div");
+                noProductsMessage.id = "no-products-message";
+                noProductsMessage.className = "no-products-message";
+                noProductsMessage.innerHTML = "Nu există produse conform filtrării curente.";
+                
+                // aduagare
+                let gridProduse = document.querySelector(".grid-produse");
+                gridProduse.parentNode.insertBefore(noProductsMessage, gridProduse.nextSibling);
+            }
+            
+            noProductsMessage.style.display = anyVisible ? "none" : "block";
+        }}
+
+    document.getElementById("inp-pret").oninput = function() { //folosim oninput pentru actualizare in timp real
+        document.getElementById("infoRange").innerHTML = `(${this.value})` //actualizeaza valoarea in timp real in timp ce glisam
+    }
+
+    document.getElementById("resetare").onclick = function(e) {
+    e.preventDefault(); // prevenim comportamentul implicit
+
+        if (confirm("Ești sigur că vrei să resetezi toate filtrele?")) {
+            // Resetăm toate câmpurile la valorile lor implicite
+            document.getElementById("inp-nume").value = "";
+            document.getElementById("inp-culoare").value = "";
+            document.getElementById("inp-etichete").value = "";
+            document.getElementById("inp-observatii").value = "";
+            document.getElementById("inp-noutati").checked = false;
+
+            // Bonus 1: Resetăm și input-ul pentru greutate la valoarea maximă
+            let inputGreutate = document.getElementById("inp-greutate-max");
+            if (inputGreutate) {
+                inputGreutate.value = inputGreutate.max; // resetează la valoarea maximă
+            }            document.getElementById("inp-categorie").value = "toate";
+            document.getElementById("inp-subcategorie").value = "toate";
+
+            let inputRange = document.getElementById("inp-pret");
+            inputRange.value = 0;
+            document.getElementById("infoRange").innerHTML = `(${inputRange.value})`;
+
+            document.getElementById("i_rad4").checked = true;            // Afișăm toate produsele
+            let produse = document.getElementsByClassName('produs');
+            for (let prod of produse) {
+                prod.style.display = 'block';
+            }
+            
+            // Ascundem mesajul "nu există produse" dacă există
+            let noProductsMessage = document.getElementById("no-products-message");
+            if (noProductsMessage) {
+                noProductsMessage.style.display = "none";
+            }
+
+            // Resetăm și ordinea inițială (anulăm sortarea)
+            let container = document.querySelector(".grid-produse");
+            let produseArray = Array.from(produse);
+            produseArray.sort(function(a, b) {
+                // sortăm după ID-ul produsului (presupunem că sunt în ordine la început)
+                let idA = parseInt(a.querySelector("input[type=checkbox]").value);
+                let idB = parseInt(b.querySelector("input[type=checkbox]").value);
+                return idA - idB;
+            });
+
+            for (let prod of produseArray) {
+                container.appendChild(prod);
             }
         }
     }
 
-    document.getElementById("inp-pret").onchange = function() { //am selectat range ul si am zis ce se intampla cand se modifica valoarea
-        document.getElementById("infoRange").innerHTML = `(${this.value})` //asta e functioa care se executa cand se modifica val, infoRange e (0) din site, inner html e html ul spanului, continutul, apostroful oblic nu mai face concatenari , cu ghilimele nu putem insera val cu ${}, mai simplu
-    }
-
-    document.getElementById("resetare").onclick = function(e) { 
-        e.preventDefault(); //prevenim comportamentul implicit al formularului
-        
-        // Resetăm toate câmpurile la valorile lor implicite
-        document.getElementById("inp-nume").value = "";
-        document.getElementById("inp-culoare").value = "";
-        document.getElementById("inp-etichete").value = "";
-        document.getElementById("inp-observatii").value = "";
-        document.getElementById("inp-noutati").checked = false;
-        
-        // Resetăm selecturile
-        document.getElementById("inp-categorie").value = "toate";
-        document.getElementById("inp-subcategorie").value = "toate";
-        
-        // Resetăm prețul la 0
-        let inputRange = document.getElementById("inp-pret");
-        inputRange.value = 0; // Reset to 0 instead of max
-
-        // Update infoRange to reflect the reset value
-        document.getElementById("infoRange").innerHTML = `(${inputRange.value})`;
-        
-        // Resetăm radio button-ul la "toate"
-        document.getElementById("i_rad4").checked = true;
-        
-        // Afișăm toate produsele
-        let produse = document.getElementsByClassName('produs');
-        for (let prod of produse) { 
-            prod.style.display = 'block';
-        }
-    }
 
     document.getElementById("sortCrescNume").onclick = function() {
         sorteaza (1); //apelam functia sorteaza cu semnul 1 pentru sortare crescatoare

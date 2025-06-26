@@ -1,4 +1,4 @@
- /* h1 {
+/* h1 {
     color: var(--primary-color);
   }
   
@@ -46,6 +46,15 @@ body.dark {
     --culoare-secundara: #1A237E;
     --culoare-aprinsa: #00000096;
     --culoare-border: #121631;
+}
+
+body.blue {
+    background-color: #001122;
+    color: #E3F2FD;
+    --culoare-principala: #2196F3;
+    --culoare-secundara: #03A9F4;
+    --culoare-aprinsa: #00BCD4;
+    --culoare-border: #0277BD;
 }
 
 h2{
@@ -182,19 +191,21 @@ caption{
 .taburi-iframe>a{
     display: block;
     width: 115px;
-    height: 30px;
+    height: 45px; /* Mărită înălțimea butonului pentru a încăpea textul */
     border: 1px solid var(--culoare-aprinsa);
     background-color: var(--culoare-deschisa);
     text-align: center;
     border-top-right-radius: 55px;
-    padding-top: 15px;
+    padding-top: 5px; /* Reduced from 15px to 10px to raise text position */
+    overflow: visible; /* Permite textului să fie vizibil chiar dacă depășește butonul */
+    box-sizing: border-box; /* Include padding și border în înălțime */
 }
 
 .taburi-iframe{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    margin-bottom: -21px;
+    justify-content: flex-start; /* Changed from flex-end to flex-start */
+    margin-bottom: 0; 
 }
 
 .container-iframe{
@@ -202,15 +213,39 @@ caption{
     max-width: 500px;
     min-width: 200px;
     flex-direction: row-reverse;
+    display: flex; 
+    align-items: flex-start; /* Added to position at the top */
 }
 
 .container-iframe>iframe{
     width: 100%;
+    height: 315px; /* Set explicit height to maintain aspect ratio */
+}
+
+/* Media query for responsive iframe behavior on smaller screens */
+@media (max-width: 768px) {
+    .container-iframe {
+        width: 100%; /* Take full width on small screens */
+        flex-direction: column; /* Stack elements vertically */
+    }
+    
+    .taburi-iframe {
+        flex-direction: row; /* Tabs in a horizontal row */
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    
+    .container-iframe>iframe {
+        height: 250px; /* Smaller height on mobile */
+    }
 }
 
 .taburi-iframe a.coach-moments {
     align-self: flex-start;  /* nu merge sa l aliniez */
-    padding-top: 5px;  
+    padding-top: 5px;
+    height: auto; /* Înălțime automată bazată pe conținut */
+    min-height: 45px; /* Înălțime minimă pentru consistență */
+    line-height: 1.2; /* Spațiere linie pentru lizibilitate */
 }
 
 .taburi-iframe a:hover {
@@ -292,161 +327,7 @@ caption{
 }
 
 
-/* CSS PRINTARE */
-
-
-#watermark,#absolut{
-    display:none;
-}
-/* #grid-pagina {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;                    !!!
-    row-gap: 15px;
-    column-gap: 5px;
-    padding:10px;
-} */
-/* .celula {
-    background-color: lightblue;
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 16px;
-    text-align: center;
-} foloseste la ceva asta?*/
-
-@media print {
-
-    #absolut{
-        position: absolute;
-        display: inline-block;
-        top: 101%;
-        width:200px;
-        height:35px;
-        border:5px double black;
-        right:0;
-        overflow: visible;
-        font-size:15px;
-    }
-    /* #absolut::after{
-        content:"Acesta este un proiect scolar.";                   !!!
-        position: absolute;
-        font-size:15px;
-        right:0;
-        border:5px double black;
-        width:200px;
-        height:35px;
-        display: inline-block;
-    } */
-
-    #colaborari, #catalog, #link-top, .facultate-mapa{
-        display: none;
-    }
-
-    #grid-pagina{
-        display: block; 
-    }
-
-    #grid-pagina > *{
-        outline: 1px solid white;
-        padding: 4px;
-    }
-
-    .imc, .m, .h, .exponent {
-        color: black;
-    }
-
-    a {
-        color: inherit;  /* ia culoarea textului parinte */
-        text-decoration: none;  /* scoate sublinierea*/
-    }
-
-    h1{
-        margin-top: 50%;
-        text-align:center;
-        margin-left:1cm;
-    }
-
-    ul.meniu {
-        display: flex;
-        flex-direction: column;
-        list-style-type: none;
-        padding: 0;
-    }
-
-    ul.meniu ul {
-        display: none !important;
-    }
-
-    footer {
-        page-break-before: always;
-    }
-
-    .meniu {
-        page-break-after: always; 
-    }
-
-
-        html, body {
-        width: 210mm;
-                overflow:visible !important;
-        }
-
-        
-    /* 
-    #grid-pagina div:nth-child(3){
-        
-        page-break-before:always;
-    }
-    forțează ca al 3-lea div din #grid-pagina să înceapă pe o pagină nouă atunci când documentul este tipărit. 
-    */
-
-        #watermark
-        {
-            display: block;
-            position: fixed;/*apare pe toate paginile*/
-            width: 60%;
-            height: 10%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* sau text align center */
-            color: rgba(0, 0, 0, 0.3);
-        }
-        /* #watermark::after{
-            
-            opacity:0.4;
-            padding:5px;
-            display: block;
-            background: white;
-            border:2px solid black;
-            border-top-left-radius:10px;
-            border-bottom-left-radius:10px;
-            border-right:none;
-            content:"Acesta este un proiect școlar!";
-        } */
-
-    #end{
-        page-break-before: always;
-    }
-
-
-    @page {
-        size: A4 portrait;
-        margin-bottom:2cm;
-        margin-top:2cm;
-        counter-increment: page;
-            
-    }
-    @page:left{
-
-        margin-left:2cm;
-        margin-right:1cm;
-        border-radius: 20cm;
-    }
-    @page:right{
-
-        margin-right:2cm;
-        margin-left:1cm;
-    }
-}
+/* Removed print styles - moved to print.css */
 
 
 @media screen and (max-width: 1200px){
@@ -496,5 +377,81 @@ caption{
         min-width: 100px;
     }
 
+}
+
+/* Stiluri pentru header și selectorului de teme avansate */
+#titlu .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#titlu h1 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.theme-selector-wrapper {
+    margin-left: auto;
+    padding: 10px;
+}
+
+.theme-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.theme-options .form-check {
+    margin: 0;
+}
+
+.theme-options .form-check-label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.theme-options .form-check-input:checked + .form-check-label {
+    background-color: var(--culoare-principala, #2196F3);
+    color: white;
+}
+
+.theme-options .form-check-label:hover {
+    background-color: rgba(33, 150, 243, 0.1);
+}
+
+/* Tema blue - stiluri speciale */
+body.blue .theme-options .form-check-input:checked + .form-check-label {
+    background-color: #2196F3;
+}
+
+body.dark .theme-options .form-check-input:checked + .form-check-label {
+    background-color: #163461b6;
+}
+
+/* Responsive styles for theme selector in header */
+@media screen and (max-width: 768px) {
+    #titlu .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .theme-selector-wrapper {
+        margin: 5px 0;
+        align-self: flex-end;
+    }
+    
+    .theme-options .form-check-label {
+        font-size: 0.7rem;
+        padding: 2px 5px;
+    }
 }
 

@@ -1,5 +1,3 @@
-
-
 main{
     --padd-main:1rem;
     padding-left:var(--padd-main);
@@ -102,4 +100,56 @@ main{
 
 .caracteristici li {
     margin-bottom: 8px;
+}
+
+/* Range input styling */
+.range-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+.range-container .form-range {
+    flex: 1;
+}
+
+.range-value {
+    font-size: 0.875rem;
+    color: var(--bs-secondary);
+    min-width: 2rem;
+}
+
+.current-value {
+    font-size: 0.875rem;
+    color: var(--bs-primary);
+    font-weight: bold;
+}
+
+/* Capitalizare prima litera pentru link-urile de produse */
+nav ul li a[href^="/produse?tip="], 
+ul.meniu li ul li a {
+    text-transform: capitalize;
+}
+
+/* Bonus 3 */
+.no-products-message {
+    text-align: center;
+    padding: 2rem;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    background-color: #f9e7e6;
+    border-radius: 1rem;
+    border: 1px solid #e74c3c;
+    box-shadow: 0px 0px 0.5rem rgba(231, 76, 60, 0.3);
+    font-weight: bold;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

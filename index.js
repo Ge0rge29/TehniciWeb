@@ -1,9 +1,12 @@
-const express= require("express"); //obiectul executat de biblioteca express
+const express= require("express"); 
 const path= require("path");
 const fs= require("fs"); 
-const sharp= require("sharp"); //biblioteca pentru manipularea imaginilor
+const sharp= require("sharp"); 
 const sass= require("sass"); 
-const pg= require("pg"); //biblioteca pentru conectarea la baza de date PostgreSQL
+const pg= require("pg"); 
+
+//express e un obiect dat de biblioteca tot express 
+//require imi returneaza un obiect cu proprietati si metode
 
 const Client=pg.Client; //clasa definita in pachet 
 
@@ -38,7 +41,7 @@ console.log("Folderul curent de lucru: ", process.cwd())
 
 app.set("view engine", "ejs") //limbajul de template default 
 
-obGlobal={
+obGlobal={ //cream obiectul global cu proprietati ale aecestuia
     obErori: null,
     obImagini: null,
     folderScss: path.join(__dirname,"resurse/scss"),
@@ -47,7 +50,7 @@ obGlobal={
     optiuniMeniu: null
 }
 
-client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezultat ){ 
+client.query("select * from unnest(enum_range(null::tipuri_produse))", function(err, rezultat ){ // clinet query e o metoda pentru a transmite interogari sql catre o baza de date
     console.log(err)    
     console.log("Tipuri produse:", rezultat) 
     obGlobal.optiuniMeniu=rezultat.rows; //transmit in obiectul global optiunile de meniu. rezultat e ob nu vector care are ca proprietare rows care e vectorul cu inregistrari
@@ -55,7 +58,7 @@ client.query("select * from unnest(enum_range(null::tipuri_produse))", function(
 
 vect_foldere=["temp", "backup", "temp1"]
 for (let folder of vect_foldere){
-    let caleFolder=path.join(__dirname,folder)
+    let caleFolder=path.join(__dirname,folder) //crea cai complete 
     if(!fs.existsSync(caleFolder)){
         fs.mkdirSync(caleFolder); 
     }
@@ -63,14 +66,14 @@ for (let folder of vect_foldere){
 
 function compileazaScss(caleScss, caleCss){
     console.log("cale:",caleCss);
-    if(!caleCss){
+    if(!caleCss){ //daca calea nu e oferita se creaza fiseerul.css
 
         let numeFisExt=path.basename(caleScss);
         let numeFis=numeFisExt.split(".")[0]   /// "a.scss"  -> ["a","scss"]
         caleCss=numeFis+".css";
     }
     
-    if (!path.isAbsolute(caleScss))
+    if (!path.isAbsolute(caleScss)) //se transforma in cai absolute
         caleScss=path.join(obGlobal.folderScss,caleScss )
     if (!path.isAbsolute(caleCss))
         caleCss=path.join(obGlobal.folderCss,caleCss )
@@ -78,22 +81,22 @@ function compileazaScss(caleScss, caleCss){
 
     let caleBackup=path.join(obGlobal.folderBackup, "resurse/css");
     if (!fs.existsSync(caleBackup)) {
-        fs.mkdirSync(caleBackup,{recursive:true})
+        fs.mkdirSync(caleBackup,{recursive:true}) //creare backup
     }
     
     // la acest punct avem cai absolute in caleScss si  caleCss
 
     let numeFisCss=path.basename(caleCss);
-    let numeFisBackup = `${path.parse(numeFisCss).name}_${Date.now()}${path.parse(numeFisCss).ext}`; //etapa5 bonus 2
+    let numeFisBackup = `${path.parse(numeFisCss).name}_${Date.now()}${path.parse(numeFisCss).ext}`; 
     
     if (fs.existsSync(caleCss)){
-        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css", numeFisBackup)); //etapa5 bonus 2 
+        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css", numeFisBackup));  
     }
     rez=sass.compile(caleScss, {"sourceMap":true});
     fs.writeFileSync(caleCss,rez.css)
     //console.log("Compilare SCSS",rez);
 }
-//compileazaScss("a.scss");
+
 vFisiere=fs.readdirSync(obGlobal.folderScss);
 for( let numeFis of vFisiere ){
     if (path.extname(numeFis)==".scss"){
@@ -113,15 +116,15 @@ fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
 })
 
 
-// proprietatea cu vectorul de erori
+//ia toate erorile din fisier le proceseaza si afiseaza 
 function initErori(){
     let continut = fs.readFileSync(path.join(__dirname,"resurse/json/erori.json")).toString("utf-8");
     
-    obGlobal.obErori=JSON.parse(continut)
+    obGlobal.obErori=JSON.parse(continut) //jsone parse transforma un string in obiect
     
-    obGlobal.obErori.eroare_default.imagine=path.join(obGlobal.obErori.cale_baza, obGlobal.obErori.eroare_default.imagine)
+    obGlobal.obErori.eroare_default.imagine=path.join(obGlobal.obErori.cale_baza, obGlobal.obErori.eroare_default.imagine) //concatenez din eraore default imaginea
     for (let eroare of obGlobal.obErori.info_erori){
-        eroare.imagine=path.join(obGlobal.obErori.cale_baza, eroare.imagine)
+        eroare.imagine=path.join(obGlobal.obErori.cale_baza, eroare.imagine)// concatenez calea de baza la fiecare eroare
     }
     console.log(obGlobal.obErori)
 
@@ -170,13 +173,12 @@ initImagini();
 
 
 
-
-function afisareEroare(res, identificator, titlu, text, imagine){
+function afisareEroare(res, identificator, titlu, text, imagine){ //trimite identificato pentru a compara cu erorile din json. funtia booleana
     let eroare= obGlobal.obErori.info_erori.find(function(elem){ 
                         return elem.identificator==identificator
                     });
     if(eroare){
-        if(eroare.status)
+        if(eroare.status) //erorile de protocol http verific daca e eroare predefinita, status pt pagina incarcata corect e 200
             res.status(identificator)
         var titluCustom=titlu || eroare.titlu;
         var textCustom=text || eroare.text;
@@ -212,32 +214,30 @@ app.use("/", function(req, res, next){ //* daca nu ii dau calea aplica pe toate 
 app.use("/resurse", express.static(path.join(__dirname,"resurse")))      
 app.use("/rnode_modules", express.static(path.join(__dirname,"node_modules"))) 
 
-app.get("/favicon.ico", function(req, res){
+app.get("/favicon.ico", function(req, res){ //calea url
     res.sendFile(path.join(__dirname, "/resurse/imagini/favicon/favicon.ico"))
 })
 
 
 app.get("/cerere", function(req, res) {
     try {
-        const numarImagini = 4; // Fixed number of images
+        const numarImagini = 4; 
         
-        // Get all available images and ensure we have enough by duplicating if necessary
         let imaginiDisponibile = [...obGlobal.obImagini.imagini];
-        while(imaginiDisponibile.length < numarImagini) {
+        while(imaginiDisponibile.length < numarImagini) { 
             imaginiDisponibile = [...imaginiDisponibile, ...imaginiDisponibile];
         }
         
-        // Select exactly 4 random images
         let imaginiGalerie = [];
         while(imaginiGalerie.length < numarImagini) {
-            const index = Math.floor(Math.random() * imaginiDisponibile.length);
+            const index = Math.floor(Math.random() * imaginiDisponibile.length); // de ce am inmultit cu imaigniDisponibile.length 
             imaginiGalerie.push(imaginiDisponibile[index]);
             imaginiDisponibile.splice(index, 1);
         }
 
         res.render("pagini/cerere", {
             imaginiGalerie: imaginiGalerie,
-            numarImagini: 4 // Always 4
+            numarImagini: 4 
         });
     } catch(error) {
         console.error('Error in /cerere:', error);
@@ -295,20 +295,103 @@ app.get("/produse", function(req, res){ //etapa 6 cerinta 1
     //     }
     // }
 
-    queryOptiuni = "select * from unnest(enum_range(null::categ_produs))" // query care ne da toate valorile din enum
+    // Bonus 1: Query pentru opțiuni categorii
+    queryOptiuni = "select * from unnest(enum_range(null::categ_produs))" // Functie care extrage toate valorile din tip ENUM unnest() transformă un array în rânduri separate:
+    
+    queryPretMinMax = "select min(pret) as min_pret, max(pret) as max_pret from produse_sportive";
+    
+    querySubcategorii = "select distinct subcategorie from produse_sportive where subcategorie is not null order by subcategorie"; //Exclude produsele care nu au subcategorie setată
+    queryCulori = "select distinct culoare from produse_sportive where culoare is not null order by culoare";
+    queryDurabilitate = "select min(durabilitate) as min_durabilitate, max(durabilitate) as max_durabilitate from produse_sportive";
+    queryEtichete = "select distinct unnest(string_to_array(etichete, ',')) as eticheta from produse_sportive where etichete is not null and etichete != '' order by eticheta";
+    queryTextStats = "select avg(length(nume || ' ' || coalesce(etichete, ''))) as avg_length from produse_sportive";
+    queryNoutati = "select count(*) as produse_noi from produse_sportive where data_adaugare >= current_date - interval '30 days'";
+    
+    queryGreutateStats = "select min(greutate) as min_greutate, max(greutate) as max_greutate, avg(greutate) as avg_greutate from produse_sportive where greutate is not null";
+
     client.query(queryOptiuni, function(err, rezOptiuni){ //cu client.query executa queryul si transmitem functia care sa se execute cand priumeste raspuns
         console.log(rezOptiuni)
 
-
-        queryProduse="select * from produse_sportive" + conditieQuery //fiind in functie cauta in taote produselse
-        client.query(queryProduse, function(err, rez){
+        // Bonus 1: Executăm query pentru min/max preț
+        client.query(queryPretMinMax, function(err, rezPretMinMax){
             if (err){
-                console.log(err);
-                afisareEroare(res, 2); //poate da eroare dar daca nu se transmita pe produse.ejs 
+                console.log("Eroare la query preț min/max:", err);
+                afisareEroare(res, 2);
+                return;
             }
-            else{
-                res.render("pagini/produse", {produse: rez.rows, optiuni:rezOptiuni.rows})
-            }
+
+            client.query(querySubcategorii, function(err, rezSubcategorii){
+                if (err){
+                    console.log("Eroare la query subcategorii:", err);
+                    afisareEroare(res, 2);
+                    return;
+                }                
+                client.query(queryCulori, function(err, rezCulori){
+                    if (err){
+                        console.log("Eroare la query culori:", err);
+                        afisareEroare(res, 2);
+                        return;
+                    }
+
+                    client.query(queryDurabilitate, function(err, rezDurabilitate){
+                        if (err){
+                            console.log("Eroare la query durabilitate:", err);
+                            afisareEroare(res, 2);
+                            return;
+                        }                        
+                        client.query(queryEtichete, function(err, rezEtichete){
+                            if (err){
+                                console.log("Eroare la query etichete:", err);
+                                afisareEroare(res, 2);
+                                return;
+                            }                            
+                            client.query(queryTextStats, function(err, rezTextStats){
+                                if (err){
+                                    console.log("Eroare la query statistici text:", err);
+                                    afisareEroare(res, 2);
+                                    return;
+                                }                               
+                                client.query(queryNoutati, function(err, rezNoutati){
+                                    if (err){
+                                        console.log("Eroare la query noutăți:", err);
+                                        afisareEroare(res, 2);
+                                        return;
+                                    }                                   
+                                    client.query(queryGreutateStats, function(err, rezGreutateStats){
+                                        if (err){
+                                            console.log("Eroare la query statistici greutate:", err);
+                                            afisareEroare(res, 2);
+                                            return;
+                                        }
+
+                                        queryProduse="select * from produse_sportive" + conditieQuery //fiind in functie cauta in taote produselse
+                                        client.query(queryProduse, function(err, rez){
+                                            if (err){
+                                                console.log(err);
+                                                afisareEroare(res, 2); //poate da eroare dar daca nu se transmita pe produse.ejs 
+                                            }
+                                            else{                            // Bonus 1: Transmitem toate datele dinamice la template
+                                                res.render("pagini/produse", {
+                                                    produse: rez.rows, //array de obiecte
+                                                    optiuni: rezOptiuni.rows,
+                                                    pretMinMax: rezPretMinMax.rows[0], // {min_pret, max_pret}
+                                                    suboptiuni: rezSubcategorii.rows,
+                                                    culoriOptiuni: rezCulori.rows,
+                                                    durabilitate: rezDurabilitate.rows[0], //Obiect cu 2 prop
+                                                    eticheteOptiuni: rezEtichete.rows, 
+                                                    textStats: rezTextStats.rows[0], 
+                                                    noutati: rezNoutati.rows[0], 
+                                                    greutateStats: rezGreutateStats.rows[0] //Ob cu 3 prop
+                                                })
+                                            }
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
         })
     })
 })
@@ -350,7 +433,7 @@ app.get("/video", function(req, res) {
     res.render("pagini/video");
 });
 
-app.get(/^\/([a-zA-Z0-9\/_-]*)$/, function(req, res, next){
+app.get(/^\/([a-zA-Z0-9\/_-]*)$/, function(req, res, next){ //functie callbock care trimite ca argument
     try {
         res.render("pagini" + req.url, function (err, rezultatRandare) {
             if (err) {

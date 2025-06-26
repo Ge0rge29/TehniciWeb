@@ -1,25 +1,29 @@
-    <meta name="author" content="George Marcusanu">  <!-- autorul/autoarea paginii-->
+<meta name="author" content="George Marcusanu">  <!-- autorul/autoarea paginii-->
         <link rel="icon" type="image/png" href="/resurse/imagini/favicon/favicon-96x96.png" sizes="96x96" />
         <meta charset="UTF-8"><!-- codificarea în memorie a caracterelor-->
         <link rel="icon" type="image/svg+xml" href="/resurse/imagini/favicon/favicon.svg" />
         <link rel="shortcut icon" href="/resurse/imagini/favicon/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/resurse/imagini/favicon/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
-        <link rel="manifest" href="/resurse/imagini/favicon/site.webmanifest" />
-
-        <link rel="stylesheet" type="text/css" href="/resurse/css/general.css"/>
+        <link rel="manifest" href="/resurse/imagini/favicon/site.webmanifest" />        <link rel="stylesheet" type="text/css" href="/resurse/css/general.css"/>
+        <link rel="stylesheet" type="text/css" href="/resurse/css/print.css" media="print"/>
         <link rel="stylesheet" type="text/css" href="/resurse/css/nav.css"/>
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
         <link rel="stylesheet" href="/resurse/css/nav1000.css" type="text/css" media="screen and (max-width:1000px)"/>
 
-        <link rel="stylesheet" href="/resurse/css/nav700.css" type="text/css" media="screen and (max-width:700px)"/>
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="/resurse/css/nav700.css" type="text/css" media="screen and (max-width:700px)"/>        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
-        <link rel="stylesheet" href="/resurse/css/customizare_bootstrap.css" type="text/css" />
-        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="/resurse/js/schimba_tema.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">        <link rel="stylesheet" href="/resurse/css/customizare_bootstrap.css" type="text/css" />
+        <!-- Load menu-fix.css last to override all other styles -->
+        <link rel="stylesheet" href="/resurse/css/menu-fix.css" type="text/css" />        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/resurse/js/tema-avansata.js"></script>
+          <!-- Force menu to appear above all content with inline style -->
+        <style>
+            /* Critical z-index fix for menu */
+            nav { position: relative; z-index: 9999999 !important; }
+            #ch-menu:checked + ul.meniu { z-index: 9999998 !important; position: absolute !important; }
+            ul.meniu li ul { z-index: 9999997 !important; }
+        </style>
+        <script src="/resurse/js/menu-fix.js" defer></script>

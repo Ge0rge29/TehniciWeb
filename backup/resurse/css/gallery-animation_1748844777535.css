@@ -1,0 +1,62 @@
+.animated-gallery {
+  width: 600px;
+  height: 600px;
+  margin: 2rem auto;
+  position: relative;
+  overflow: hidden;
+  border: 15px solid;
+  border-image: url("/resurse/imagini/border-pattern.png") 30 stretch;
+}
+.animated-gallery:hover .gallery-container {
+  animation-play-state: paused;
+}
+
+.gallery-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: galleryAnimation 15s ease-in-out infinite;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+.gallery-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+@keyframes galleryAnimation {
+  0%, 15% {
+    transform: scale(1) translateX(0) translateY(0);
+  }
+  20%, 35% {
+    transform: scale(0.8) translateX(-10%) translateY(-10%);
+  }
+  40%, 55% {
+    transform: scale(0.8) translateX(10%) translateY(-10%);
+  }
+  60%, 75% {
+    transform: scale(0.8) translateX(10%) translateY(10%);
+  }
+  80%, 95% {
+    transform: scale(0.8) translateX(-10%) translateY(10%);
+  }
+  100% {
+    transform: scale(1) translateX(0) translateY(0);
+  }
+}
+@media (max-width: 1200px) {
+  .animated-gallery {
+    width: 400px;
+    height: 400px;
+  }
+}
+@media (max-width: 768px) {
+  .animated-gallery {
+    display: none;
+  }
+}

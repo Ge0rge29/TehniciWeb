@@ -1,5 +1,6 @@
 :root {
-    --link-visited-color: rgb(148, 18, 148);
+    --link-visited-color: rgb(197, 39, 197);
+    --background: rgb(28, 3, 255);
 }
 
 a:visited {
@@ -11,7 +12,7 @@ a[href^="http"]::before {
     font-size: 1.5em;
     margin-right: 0.2em;
     display: inline-block;
-    transition: color 0.3s ease;
+    transition: color 1s ease;
 }
 
 a[href^="http"]:hover::before {
@@ -21,12 +22,12 @@ a[href^="http"]:hover::before {
 main a {
     position: relative;
     background: radial-gradient(circle at center,
-        var(--link-visited-color) 0%,
-        var(--link-visited-color) 40%,
+        rgba(28, 3, 255, 0.6) 0%,
+        rgba(28, 3, 255, 0.6) 40%,
         transparent 80%,
         transparent 100%
     ) center/0% 0% no-repeat;
-    transition: background-size 0.5s ease;
+    transition: background-size 1s ease;
 }
 
 main a:hover {
